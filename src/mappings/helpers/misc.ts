@@ -326,7 +326,7 @@ export function updateTokenBalances(
     let latestPrice = LatestPrice.load(latestPriceId);
 
     if (latestPrice) {
-      if(tokenAddress == Address.fromString("0xc579D1f3CF86749E05CD06f7ADe17856c2CE3126"))
+      if(tokenAddress == Address.fromString("0x21be370d5312f44cb42ce377bc9b8a0cef1a4c83"))
       {
         const highestPriceForAvax = BigDecimal.fromString('500')
         if (latestPrice.priceUSD.le(highestPriceForAvax)) { 

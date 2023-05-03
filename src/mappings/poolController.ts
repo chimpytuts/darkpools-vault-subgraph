@@ -24,7 +24,6 @@ import {
   getPoolShare,
 } from './helpers/misc';
 import { ONE_BD, ZERO_ADDRESS, ZERO_BD } from './helpers/constants';
-import { updateAmpFactor } from './helpers/stable';
 
 /************************************
  *********** SWAP ENABLED ***********
@@ -112,7 +111,6 @@ export function handleAmpUpdateStopped(event: AmpUpdateStopped): void {
 
   let pool = Pool.load(poolId);
   if (pool == null) return;
-  updateAmpFactor(pool);
 }
 
 /************************************

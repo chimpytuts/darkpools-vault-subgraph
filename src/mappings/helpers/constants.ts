@@ -21,31 +21,31 @@ export class AddressByNetwork {
 let network: string = dataSource.network();
 
 let vaultAddressByNetwork: AddressByNetwork = {
-  velas: '0xA4A48dfcAE6490AfE9C779BF0f324B48683e488c'
+  velas: '0xfa794b00417FE81d7E16B86283d7150fbdA0F975'
 };
 
 let wethAddressByNetwork: AddressByNetwork = {
-  velas: '0x6ab6d61428fde76768d7b45d8bfeec19c6ef91a8'
+  velas: '0x74b23882a30290451A17c44f4F05243b6b58C76d'
 };
 
 let wbtcAddressByNetwork: AddressByNetwork = {
-  velas: '0x639a647fbe20b6c8ac19e48e2de44ea792c62c5c'
+  velas: '0x321162Cd933E2Be498Cd2267a90534A804051b11'
 };
 
 let usdAddressByNetwork: AddressByNetwork = {
-  velas: '0xb44a9b6905af7c801311e8f4e76932ee959c663c'
+  velas: '0x049d68029688eabf473097a2fc38ef61633a3c7a'
 };
 
 let usdcAddressByNetwork: AddressByNetwork = {
-  velas: '0x80a16016cc4a2e6a2caca8a4a498b1699ff0f844'
+  velas: '0x04068da6c83afcfa0e13ba15a6696662335d5b75'
 };
 
 let balAddressByNetwork: AddressByNetwork = {
-  velas: '0x117E0b609C7eEDafeF1A83Ad692dE52817A0B2F6'
+  velas: '0xFF22eF4216dF83Bb87a92Ca01147010044971138'
 };
 
 let daiAddressByNetwork: AddressByNetwork = {
-    velas: '0xe3f5a90f9cb311505cd691a46596599aa1a0ad7d'
+    velas: '0x8d11ec38a3eb5e956b052f67da8bdc9bef8abf3e'
 };
 
 let busdAddressByNetwork: AddressByNetwork = {
@@ -61,13 +61,13 @@ function forNetwork(addressByNetwork: AddressByNetwork, network: string): Addres
 }
 
 
-export let VAULT_ADDRESS = Address.fromString('0xA4A48dfcAE6490AfE9C779BF0f324B48683e488c');
-export let WETH: Address = Address.fromString('0x6ab6d61428fde76768d7b45d8bfeec19c6ef91a8');
-export let WBTC: Address = Address.fromString('0x639a647fbe20b6c8ac19e48e2de44ea792c62c5c');
-export let USD: Address = Address.fromString('0xb44a9b6905af7c801311e8f4e76932ee959c663c');
-export let USDC: Address = Address.fromString('0x80a16016cc4a2e6a2caca8a4a498b1699ff0f844');
+export let VAULT_ADDRESS = Address.fromString('0xfa794b00417FE81d7E16B86283d7150fbdA0F975');
+export let WETH: Address = Address.fromString('0x74b23882a30290451A17c44f4F05243b6b58C76d');
+export let WBTC: Address = Address.fromString('0x321162Cd933E2Be498Cd2267a90534A804051b11');
+export let USD: Address = Address.fromString('0x049d68029688eabf473097a2fc38ef61633a3c7a');
+export let USDC: Address = Address.fromString('0x04068da6c83afcfa0e13ba15a6696662335d5b75');
 export let BAL: Address = Address.fromString('0x117E0b609C7eEDafeF1A83Ad692dE52817A0B2F6');
-export let DAI: Address = Address.fromString('0xe3f5a90f9cb311505cd691a46596599aa1a0ad7d');
+export let DAI: Address = Address.fromString('0x8d11ec38a3eb5e956b052f67da8bdc9bef8abf3e');
 
 export let AVAX: Address = Address.fromString('0x332730a4F6E03D9C55829435f10360E13cfA41Ff');
 export let MATIC: Address = Address.fromString('0xA649325Aa7C5093d12D6F98EB4378deAe68CE23F');
@@ -75,8 +75,8 @@ export let BNB: Address = Address.fromString('0x65e66a61D0a8F1e686C2D6083ad611a1
 
 export let BUSD: Address =  Address.fromString('0xc9baa8cfdde8e328787e29b4b078abf2dadc2055');
 
-export let PRICING_ASSETS: Address[] = [WETH, AVAX, MATIC, BNB, USDC, USD, DAI, BUSD, BAL];
-export let USD_STABLE_ASSETS: Address[] = [USDC, DAI, USD, BUSD];
+export let PRICING_ASSETS: Address[] = [WETH, WBTC, USDC, USD, DAI];
+export let USD_STABLE_ASSETS: Address[] = [USDC, DAI, USD];
 
 //export let PRICING_ASSETS: Address[] = [WETH, WBTC, USDC, DAI, BAL, MIM, AUSD];
 //export let USD_STABLE_ASSETS: Address[] = [USDC, DAI, AUSD, MIM];
