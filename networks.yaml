@@ -1,0 +1,17 @@
+velas:
+  network: velas
+  Vault:
+    address: "0xA4A48dfcAE6490AfE9C779BF0f324B48683e488c"
+    startBlock: 56162224
+  WeightedPoolFactory:
+    address: "0xaCD5f7A927F544b3A2af6BDD4261BD0Ca6222625"
+    startBlock: 56162224
+  WeightedPool2TokenFactory:
+    address: "0xAE2bEC12e16872E99f88605E896c1B73824056Ba"
+    startBlock: 56162224
+  StablePoolFactory:
+    address: "0x5d444C040C5f4368cB8d1D2FA8809456404DDdE8"
+    startBlock: 56162224
+  LiquidityBootstrappingPoolFactory:
+    address: "0x07237c49E55ff33014D1B993A9b0477D55cC0147"
+    startBlock: 56162224

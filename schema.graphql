@@ -1,0 +1,276 @@
+# Vault
+type Balancer @entity {
+  id: ID!
+  poolCount: Int!
+  pools: [Pool!] @derivedFrom(field: "vaultID")
+
+  totalLiquidity: BigDecimal!
+  totalSwapCount: BigInt!
+  totalSwapVolume: BigDecimal!
+  totalSwapFee: BigDecimal!
+}
+
+type Pool @entity {
+  id: ID!
+  address: Bytes!
+  poolType: String
+  factory: Bytes
+  strategyType: Int!
+  symbol: String
+  name: String
+  swapEnabled: Boolean!
+  swapFee: BigDecimal!
+  owner: Bytes
+
+  totalWeight: BigDecimal
+  totalSwapVolume: BigDecimal!
+  totalSwapFee: BigDecimal!
+  totalLiquidity: BigDecimal!
+  totalShares: BigDecimal!
+
+  createTime: Int!
+  swapsCount: BigInt!
+  holdersCount: BigInt!
+
+  vaultID: Balancer!
+  tx: Bytes
+
+  tokensList: [Bytes!]!
+
+  tokens: [PoolToken!] @derivedFrom(field: "poolId")
+  swaps: [Swap!] @derivedFrom(field: "poolId")
+  shares: [PoolShare!] @derivedFrom(field: "poolId")
+  historicalValues: [PoolHistoricalLiquidity!] @derivedFrom(field: "poolId")
+
+  # LiquidityBootstrappingPool Only
+  weightUpdates: [GradualWeightUpdate!] @derivedFrom(field: "poolId")
+
+  # StablePool Only
+  amp: BigInt
+
+  # MetaStablePool Only
+  priceRateProviders: [PriceRateProvider!] @derivedFrom(field: "poolId")
+
+  # ConvergentCurvePool (Element) Only
+  principalToken: Bytes
+  baseToken: Bytes
+  expiryTime: BigInt
+  unitSeconds: BigInt
+
+  # InvestmentPool Only
+  managementFee: BigDecimal
+}
+
+type PoolToken @entity {
+  id: ID!
+  poolId: Pool!
+  token: Token!
+  symbol: String!
+  name: String!
+  decimals: Int!
+  address: String!
+  priceRate: BigDecimal!
+  balance: BigDecimal!
+  invested: BigDecimal!
+  investments: [Investment!] @derivedFrom(field: "poolTokenId")
+
+  # WeightedPool Only
+  weight: BigDecimal
+}
+
+type PriceRateProvider @entity {
+  id: ID!
+  poolId: Pool!
+  token: PoolToken!
+  address: Bytes!
+  rate: BigDecimal!
+  lastCached: Int!
+  cacheDuration: Int!
+  cacheExpiry: Int!
+}
+
+type PoolShare @entity {
+  id: ID!
+  userAddress: User!
+  poolId: Pool!
+  balance: BigDecimal!
+}
+
+type User @entity {
+  id: ID!
+  sharesOwned: [PoolShare!] @derivedFrom(field: "userAddress")
+  swaps: [Swap!] @derivedFrom(field: "userAddress")
+  userInternalBalances: [UserInternalBalance!]
+    @derivedFrom(field: "userAddress")
+}
+
+type UserInternalBalance @entity {
+  id: ID!
+  userAddress: User
+  token: Bytes!
+  balance: BigDecimal!
+}
+
+type GradualWeightUpdate @entity {
+  id: ID!
+  poolId: Pool!
+  scheduledTimestamp: Int!
+  startTimestamp: Int!
+  endTimestamp: Int!
+  startWeights: [BigInt!]!
+  endWeights: [BigInt!]!
+}
+
+type AmpUpdate @entity {
+  id: ID!
+  poolId: Pool!
+  scheduledTimestamp: Int!
+  startTimestamp: Int!
+  endTimestamp: Int!
+  startAmp: BigInt!
+  endAmp: BigInt!
+}
+
+type Swap @entity {
+  id: ID!
+  caller: Bytes!
+  tokenIn: Bytes!
+  tokenInSym: String!
+  tokenOut: Bytes!
+  tokenOutSym: String!
+  tokenAmountIn: BigDecimal!
+  tokenAmountOut: BigDecimal!
+  poolId: Pool!
+  userAddress: User!
+  timestamp: Int!
+  tx: Bytes!
+  valueUSD: BigDecimal!
+}
+
+enum InvestType {
+  Join
+  Exit
+}
+
+type JoinExit @entity {
+  id: ID!
+  type: InvestType!
+  sender: Bytes!
+  amounts: [BigDecimal!]!
+  pool: Pool!
+  user: User!
+  timestamp: Int!
+  valueUSD: BigDecimal!
+  tx: Bytes!
+}
+
+type LatestPrice @entity {
+  id: ID!
+  asset: Bytes!
+  pricingAsset: Bytes! # address of stable asset
+  poolId: Pool! # last pool which set price
+  price: BigDecimal! # all the latest prices
+  priceUSD: BigDecimal! # all the latest prices
+  block: BigInt! # last block that prices were updated
+}
+
+type PoolHistoricalLiquidity @entity {
+  id: ID!
+  poolId: Pool!
+  poolTotalShares: BigDecimal!
+  poolLiquidity: BigDecimal! # total value, priced in the stable asset - ie USD
+  poolLiquidityUSD: BigDecimal!
+  poolShareValue: BigDecimal!
+  pricingAsset: Bytes! # address of stable asset
+  block: BigInt!
+  timestamp: Int!
+}
+
+type TokenPrice @entity {
+  id: ID! # address of token + address of stablecoin-poolId
+  poolId: Pool!
+  asset: Bytes!
+  amount: BigDecimal!
+  pricingAsset: Bytes! # address of stable asset
+  price: BigDecimal!
+  block: BigInt!
+  timestamp: Int!
+  priceUSD: BigDecimal!
+}
+
+type Investment @entity {
+  id: ID!
+  assetManagerAddress: Bytes!
+  amount: BigDecimal!
+  poolTokenId: PoolToken!
+  timestamp: Int!
+}
+
+type PoolSnapshot @entity {
+  id: ID!
+  pool: Pool!
+  amounts: [BigDecimal!]!
+  totalShares: BigDecimal!
+  swapVolume: BigDecimal!
+  swapFees: BigDecimal!
+  timestamp: Int!
+
+  totalSwapVolume: BigDecimal!
+  totalSwapFee: BigDecimal!
+  totalLiquidity: BigDecimal!
+  swapsCount: BigInt!
+  holdersCount: BigInt!
+}
+
+type Token @entity {
+  id: ID!
+  symbol: String
+  name: String
+  decimals: Int!
+  address: String!
+  totalBalanceUSD: BigDecimal! # total balance of tokens across balancer
+  totalBalanceNotional: BigDecimal!
+  totalVolumeUSD: BigDecimal! # total volume in fiat (usd)
+  totalVolumeNotional: BigDecimal!
+  totalSwapCount: BigInt!
+  latestPrice: LatestPrice # latest price of token, updated when pool liquidity changes
+}
+
+type TokenSnapshot @entity {
+  id: ID! # token address + dayId
+  token: Token!
+  timestamp: Int! # timestamp representing the start of day in UTC
+  totalBalanceUSD: BigDecimal! # total balance of tokens across balancer
+  totalBalanceNotional: BigDecimal! # underlying asset balance
+  totalVolumeUSD: BigDecimal! # amount of volume the token has moved on this day
+  totalVolumeNotional: BigDecimal! # underyling asset volume
+  totalSwapCount: BigInt!
+}
+
+type TradePair @entity {
+  "Token Address - Token Address"
+  id: ID!
+  token0: Token!
+  token1: Token!
+  totalSwapVolume: BigDecimal!
+  totalSwapFee: BigDecimal!
+}
+
+type TradePairSnapshot @entity {
+  id: ID!
+  pair: TradePair!
+  timestamp: Int!
+  totalSwapVolume: BigDecimal!
+  totalSwapFee: BigDecimal!
+}
+
+type BalancerSnapshot @entity {
+  id: ID!
+  vault: Balancer!
+  timestamp: Int!
+  poolCount: Int!
+  totalLiquidity: BigDecimal!
+  totalSwapCount: BigInt!
+  totalSwapVolume: BigDecimal!
+  totalSwapFee: BigDecimal!
+}
