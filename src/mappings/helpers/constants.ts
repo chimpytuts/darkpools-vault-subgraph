@@ -21,7 +21,7 @@ export class AddressByNetwork {
 let network: string = dataSource.network();
 
 let vaultAddressByNetwork: AddressByNetwork = {
-  velas: '0xfa794b00417FE81d7E16B86283d7150fbdA0F975'
+  velas: '0xC5e56b7f1C1c3a3D5be28d7980300CC93db18B29'
 };
 
 let wethAddressByNetwork: AddressByNetwork = {
@@ -61,13 +61,13 @@ function forNetwork(addressByNetwork: AddressByNetwork, network: string): Addres
 }
 
 
-export let VAULT_ADDRESS = Address.fromString('0xfa794b00417FE81d7E16B86283d7150fbdA0F975');
-export let WETH: Address = Address.fromString('0x74b23882a30290451A17c44f4F05243b6b58C76d');
-export let WBTC: Address = Address.fromString('0x321162Cd933E2Be498Cd2267a90534A804051b11');
-export let USD: Address = Address.fromString('0x049d68029688eabf473097a2fc38ef61633a3c7a');
-export let USDC: Address = Address.fromString('0x04068da6c83afcfa0e13ba15a6696662335d5b75');
+export let VAULT_ADDRESS = Address.fromString('0xC5e56b7f1C1c3a3D5be28d7980300CC93db18B29');
+export let WETH: Address = Address.fromString('0x82af49447d8a07e3bd95bd0d56f35241523fbab1');
+export let WBTC: Address = Address.fromString('0x2f2a2543b76a4166549f7aab2e75bef0aefc5b0f');
+export let USD: Address = Address.fromString('0xfd086bc7cd5c481dcc9c85ebe478a1c0b69fcbb9');
+export let USDC: Address = Address.fromString('0xff970a61a04b1ca14834a43f5de4533ebddb5cc8');
 export let BAL: Address = Address.fromString('0x117E0b609C7eEDafeF1A83Ad692dE52817A0B2F6');
-export let DAI: Address = Address.fromString('0x8d11ec38a3eb5e956b052f67da8bdc9bef8abf3e');
+export let DAI: Address = Address.fromString('0xda10009cbd5d07dd0cecc66161fc93d7c9000da1');
 
 export let AVAX: Address = Address.fromString('0x332730a4F6E03D9C55829435f10360E13cfA41Ff');
 export let MATIC: Address = Address.fromString('0xA649325Aa7C5093d12D6F98EB4378deAe68CE23F');
