@@ -9,7 +9,7 @@
     "codegen": "graph codegen --output-dir src/types/",
     "auth": "graph auth",
     "build": "graph build",
-    "deploy": "graph deploy chimpytuts/darkpools-main subgraph.yaml",
+    "deploy": "graph deploy chimpytuts/darkpools-main-arbitrum subgraph.yaml",
     "deploy:velas": "graph deploy --product hosted-service --node http://127.0.0.1:8020 --ipfs http://127.0.0.1:5001 wavelength22 subgraph.yaml",
     "remove:velas": "graph remove --product hosted-service --node http://127.0.0.1:8020 --ipfs http://127.0.0.1:5001 masterchef subgraph.yaml",
     "lint": "eslint --max-warnings 0 . --ext .ts",
