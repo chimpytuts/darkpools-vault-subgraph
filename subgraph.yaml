@@ -8,9 +8,9 @@ dataSources:
     name: Vault
     network: arbitrum-one
     source:
-      address: '0x6CfeA6484BF84de19b592fCD36f65A2a9B9CD054'
+      address: '0x82A8d8B59a13eD9df879C1f450a379182661AB59'
       abi: Vault
-      startBlock: 91739750
+      startBlock: 96711104
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.6
@@ -49,9 +49,9 @@ dataSources:
     name: WeightedPoolFactory
     network: arbitrum-one
     source:
-      address: '0x5d624b8d3f461a818cE77c84e8ec1B899f17e0ab'
+      address: '0x9B02c25aE23086A99F6A3C4f3b551f63482e2Cc7'
       abi: WeightedPoolFactory
-      startBlock: 91739750
+      startBlock: 96711104
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.6

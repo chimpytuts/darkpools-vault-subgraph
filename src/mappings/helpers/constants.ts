@@ -21,7 +21,7 @@ export class AddressByNetwork {
 let network: string = dataSource.network();
 
 let vaultAddressByNetwork: AddressByNetwork = {
-  velas: '0x6CfeA6484BF84de19b592fCD36f65A2a9B9CD054'
+  velas: '0x82A8d8B59a13eD9df879C1f450a379182661AB59'
 };
 
 let wethAddressByNetwork: AddressByNetwork = {
@@ -61,7 +61,7 @@ function forNetwork(addressByNetwork: AddressByNetwork, network: string): Addres
 }
 
 
-export let VAULT_ADDRESS = Address.fromString('0x6CfeA6484BF84de19b592fCD36f65A2a9B9CD054');
+export let VAULT_ADDRESS = Address.fromString('0x82A8d8B59a13eD9df879C1f450a379182661AB59');
 export let WETH: Address = Address.fromString('0x82af49447d8a07e3bd95bd0d56f35241523fbab1');
 export let WBTC: Address = Address.fromString('0x2f2a2543b76a4166549f7aab2e75bef0aefc5b0f');
 export let USD: Address = Address.fromString('0xfd086bc7cd5c481dcc9c85ebe478a1c0b69fcbb9');
