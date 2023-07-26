@@ -6,11 +6,11 @@ schema:
 dataSources:
   - kind: ethereum/contract
     name: Vault
-    network: arbitrum-one
+    network: bsc
     source:
-      address: '0x82A8d8B59a13eD9df879C1f450a379182661AB59'
+      address: '0x36B129B35Ac950b15558973fc246121923E3fD63'
       abi: Vault
-      startBlock: 96711104
+      startBlock: 30310129
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.6
@@ -47,11 +47,11 @@ dataSources:
           handler: handleInternalBalanceChange
   - kind: ethereum/contract
     name: WeightedPoolFactory
-    network: arbitrum-one
+    network: bsc
     source:
-      address: '0x9B02c25aE23086A99F6A3C4f3b551f63482e2Cc7'
+      address: '0xFF35D2A5cD15374A79945675E29EB184C33b65B9'
       abi: WeightedPoolFactory
-      startBlock: 96711104
+      startBlock: 30310129
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.6
@@ -75,7 +75,7 @@ dataSources:
 templates:
   - kind: ethereum/contract
     name: WeightedPool
-    network: arbitrum-one
+    network: bsc
     source:
       abi: WeightedPool
     mapping:

@@ -2,7 +2,7 @@
     "result": {
       "blacklistedPools": [
       ],
-      "chainId": 42161,
+      "chainId": 56,
       "incentivizedPools": [
       ],
       "pausedPools": [],

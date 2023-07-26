@@ -1,6 +1,6 @@
 {
     "ms": 52,
-    "query": "{\n  \"name\": \"DarkPools\",\n  \"timestamp\": \"2021-10-06T18:18:18.181Z\",\n  \"version\": {\n    \"major\": 1,\n    \"minor\": 0,\n    \"patch\": 2\n  },\n  \"tags\": {},\n  \"logoURI\": \"https://raw.githubusercontent.com/WaveLength/assets/main/assets/0xe1F2F1b7088A1Ee05d444B142De457303c7f342e.png\",\n  \"keywords\": [\n    \"beethoven\",\n    \"default\",\n    \"fantom\"\n  ],\n  \"tokens\": *[_type == \"fantomToken\"]{\n      name,\n      address,\n      symbol,\n      decimals,\n      \"chainId\": 42161,\n      logoURI\n   }\n}",
+    "query": "{\n  \"name\": \"DarkPools\",\n  \"timestamp\": \"2021-10-06T18:18:18.181Z\",\n  \"version\": {\n    \"major\": 1,\n    \"minor\": 0,\n    \"patch\": 2\n  },\n  \"tags\": {},\n  \"logoURI\": \"https://raw.githubusercontent.com/WaveLength/assets/main/assets/0xe1F2F1b7088A1Ee05d444B142De457303c7f342e.png\",\n  \"keywords\": [\n    \"beethoven\",\n    \"default\",\n    \"fantom\"\n  ],\n  \"tokens\": *[_type == \"fantomToken\"]{\n      name,\n      address,\n      symbol,\n      decimals,\n      \"chainId\": 56,\n      logoURI\n   }\n}",
     "result": {
         "keywords": [
             "darkpools",
@@ -13,40 +13,48 @@
         "timestamp": "2021-10-06T18:18:18.181Z",
         "tokens": [
             {
-                "address": "0x82af49447d8a07e3bd95bd0d56f35241523fbab1",
-                "chainId": 42161,
+                "address": "0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c",
+                "chainId": 56,
+                "decimals": 18,
+                "logoURI": "https://assets.coingecko.com/coins/images/825/large/bnb-icon2_2x.png",
+                "name": "WBNB",
+                "symbol": "WBNB"
+            },
+            {
+                "address": "0x2170ed0880ac9a755fd29b2688956bd959f933f8",
+                "chainId": 56,
                 "decimals": 18,
                 "logoURI": "https://assets.coingecko.com/coins/images/279/large/ethereum.png",
                 "name": "Ethereum",
-                "symbol": "ETH"
+                "symbol": "WETH"
             },
             {
-                "address": "0xff970a61a04b1ca14834a43f5de4533ebddb5cc8",
-                "chainId": 42161,
+                "address": "0x8ac76a51cc950d9822d68b83fe1ad97b32cd580d",
+                "chainId": 56,
                 "decimals": 6,
                 "logoURI": "https://assets.coingecko.com/coins/images/6319/large/USD_Coin_icon.png",
                 "name": "USD Coin",
                 "symbol": "USDC"
             },
             {
-                "address": "0xda10009cbd5d07dd0cecc66161fc93d7c9000da1",
-                "chainId": 42161,
+                "address": "0x1af3f329e8be154074d8769d1ffa4ee058b1dbc3",
+                "chainId": 56,
                 "decimals": 18,
                 "logoURI": "https://assets.coingecko.com/coins/images/9956/large/4943.png",
                 "name": "Dai Stablecoin",
                 "symbol": "DAI"
             },
             {
-                "address": "0x2f2a2543b76a4166549f7aab2e75bef0aefc5b0f",
-                "chainId": 42161,
+                "address": "0x7130d2a12b9bcbfae4f2634d864a1ee1ce3ead9c",
+                "chainId": 56,
                 "decimals": 8,
                 "logoURI": "https://assets.coingecko.com/coins/images/1/large/bitcoin.png",
                 "name": "Wrapped BTC",
                 "symbol": "WBTC"
             },
             {
-                "address": "0xfd086bc7cd5c481dcc9c85ebe478a1c0b69fcbb9",
-                "chainId": 42161,
+                "address": "0x55d398326f99059ff775485246999027b3197955",
+                "chainId": 56,
                 "decimals": 6,
                 "logoURI": "https://assets.coingecko.com/coins/images/325/large/Tether-logo.png",
                 "name": "Tether USD",
