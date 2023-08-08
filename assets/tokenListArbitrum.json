@@ -1,0 +1,62 @@
+{
+    "ms": 52,
+    "query": "{\n  \"name\": \"DarkPools\",\n  \"timestamp\": \"2021-10-06T18:18:18.181Z\",\n  \"version\": {\n    \"major\": 1,\n    \"minor\": 0,\n    \"patch\": 2\n  },\n  \"tags\": {},\n  \"logoURI\": \"https://raw.githubusercontent.com/WaveLength/assets/main/assets/0xe1F2F1b7088A1Ee05d444B142De457303c7f342e.png\",\n  \"keywords\": [\n    \"beethoven\",\n    \"default\",\n    \"fantom\"\n  ],\n  \"tokens\": *[_type == \"fantomToken\"]{\n      name,\n      address,\n      symbol,\n      decimals,\n      \"chainId\": 42161,\n      logoURI\n   }\n}",
+    "result": {
+        "keywords": [
+            "darkpools",
+            "default",
+            "fantom"
+        ],
+        "logoURI": "https://raw.githubusercontent.com/chimpytuts/darkpools-vault-subgraph/main/assets/logo.jpeg",
+        "name": "DarkPools",
+        "tags": {},
+        "timestamp": "2021-10-06T18:18:18.181Z",
+        "tokens": [
+            {
+                "address": "0x82af49447d8a07e3bd95bd0d56f35241523fbab1",
+                "chainId": 42161,
+                "decimals": 18,
+                "logoURI": "https://assets.coingecko.com/coins/images/279/large/ethereum.png",
+                "name": "Ethereum",
+                "symbol": "ETH"
+            },
+            {
+                "address": "0xff970a61a04b1ca14834a43f5de4533ebddb5cc8",
+                "chainId": 42161,
+                "decimals": 6,
+                "logoURI": "https://assets.coingecko.com/coins/images/6319/large/USD_Coin_icon.png",
+                "name": "USD Coin",
+                "symbol": "USDC"
+            },
+            {
+                "address": "0xda10009cbd5d07dd0cecc66161fc93d7c9000da1",
+                "chainId": 42161,
+                "decimals": 18,
+                "logoURI": "https://assets.coingecko.com/coins/images/9956/large/4943.png",
+                "name": "Dai Stablecoin",
+                "symbol": "DAI"
+            },
+            {
+                "address": "0x2f2a2543b76a4166549f7aab2e75bef0aefc5b0f",
+                "chainId": 42161,
+                "decimals": 8,
+                "logoURI": "https://assets.coingecko.com/coins/images/1/large/bitcoin.png",
+                "name": "Wrapped BTC",
+                "symbol": "WBTC"
+            },
+            {
+                "address": "0xfd086bc7cd5c481dcc9c85ebe478a1c0b69fcbb9",
+                "chainId": 42161,
+                "decimals": 6,
+                "logoURI": "https://assets.coingecko.com/coins/images/325/large/Tether-logo.png",
+                "name": "Tether USD",
+                "symbol": "USDT"
+            }
+        ],
+        "version": {
+            "major": 1,
+            "minor": 0,
+            "patch": 2
+        }
+    }
+}
