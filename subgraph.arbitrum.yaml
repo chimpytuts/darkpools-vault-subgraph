@@ -2,7 +2,7 @@ specVersion: 0.0.4
 description: Balancer is a non-custodial portfolio manager, liquidity provider, and price sensor.
 repository: https://github.com/balancer-labs/balancer-subgraph-v2
 schema:
-  file: ./schema.graphql
+  file: ./schema.arbitrum.graphql
 dataSources:
   - kind: ethereum/contract
     name: Vault
