@@ -2,12 +2,9 @@
   "name": "balancer",
   "version": "0.1.0",
   "scripts": {
-    "create": "graph create chimpytuts/balancer-v2 --node https://api.thegraph.com/deploy/",
-    "codegen": "graph codegen --output-dir src/types/",
     "codegen:arbitrum": "graph codegen --output-dir src/types/ subgraph.arbitrum.yaml",
     "codegen:binance": "graph codegen --output-dir src/types/ subgraph.binance.yaml",
     "auth": "graph auth",
-    "build": "graph build",
     "build:arbitrum": "graph build subgraph.arbitrum.yaml",
     "build:binance": "graph build subgraph.binance.yaml",
     "lint": "eslint --max-warnings 0 . --ext .ts",
