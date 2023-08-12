@@ -13,7 +13,7 @@
         "timestamp": "2021-10-06T18:18:18.181Z",
         "tokens": [
             {
-                "address": "0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c",
+                "address": "0xbb4cdb9cbd36b01bd1cbaebf2de08d9173bc095c",
                 "chainId": 56,
                 "decimals": 18,
                 "logoURI": "https://assets.coingecko.com/coins/images/825/large/bnb-icon2_2x.png",
