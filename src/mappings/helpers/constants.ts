@@ -52,12 +52,6 @@ let usdcAddressByNetwork: AddressByNetwork = {
   binance: '0x8ac76a51cc950d9822d68b83fe1ad97b32cd580d',
 };
 
-let balAddressByNetwork: AddressByNetwork = {
-  velas: '0xFF22eF4216dF83Bb87a92Ca01147010044971138',
-  arbitrum: '0x117E0b609C7eEDafeF1A83Ad692dE52817A0B2F6',
-  binance: '?', // no ball address in binance constants
-};
-
 let daiAddressByNetwork: AddressByNetwork = {
   velas: '0x8d11ec38a3eb5e956b052f67da8bdc9bef8abf3e',
   arbitrum: '0xda10009cbd5d07dd0cecc66161fc93d7c9000da1',
@@ -84,7 +78,6 @@ export let WETH: Address = forNetwork(wethAddressByNetwork);
 export let WBTC: Address = forNetwork(wbtcAddressByNetwork);
 export let USD: Address = forNetwork(usdAddressByNetwork);
 export let USDC: Address = forNetwork(usdcAddressByNetwork);
-export let BAL: Address = forNetwork(balAddressByNetwork);
 export let DAI: Address = forNetwork(daiAddressByNetwork);
 
 // export let AVAX: Address = Address.fromString('0x332730a4F6E03D9C55829435f10360E13cfA41Ff');
