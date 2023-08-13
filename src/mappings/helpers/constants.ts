@@ -40,6 +40,12 @@ let wbtcAddressByNetwork: AddressByNetwork = {
   binance: '0x7130d2a12b9bcbfae4f2634d864a1ee1ce3ead9c',
 };
 
+let wbnbAddressByNetwork: AddressByNetwork = {
+  velas: '0xbb4cdb9cbd36b01bd1cbaebf2de08d9173bc095c',
+  arbitrum: '0xbb4cdb9cbd36b01bd1cbaebf2de08d9173bc095c',
+  binance: '0xbb4cdb9cbd36b01bd1cbaebf2de08d9173bc095c',
+};
+
 let usdAddressByNetwork: AddressByNetwork = {
   velas: '0x049d68029688eabf473097a2fc38ef61633a3c7a',
   arbitrum: '0xfd086bc7cd5c481dcc9c85ebe478a1c0b69fcbb9',
@@ -75,6 +81,7 @@ function forNetwork(addressByNetwork: AddressByNetwork): Address {
 
 export let VAULT_ADDRESS = forNetwork(vaultAddressByNetwork);
 export let WETH: Address = forNetwork(wethAddressByNetwork);
+export let WBNB: Address = forNetwork(wbnbAddressByNetwork);
 export let WBTC: Address = forNetwork(wbtcAddressByNetwork);
 export let USD: Address = forNetwork(usdAddressByNetwork);
 export let USDC: Address = forNetwork(usdcAddressByNetwork);
@@ -86,7 +93,7 @@ export let DAI: Address = forNetwork(daiAddressByNetwork);
 
 export let BUSD: Address = forNetwork(busdAddressByNetwork);
 
-export let PRICING_ASSETS: Address[] = [WETH, WBTC, USDC, USD, DAI];
+export let PRICING_ASSETS: Address[] = [WBNB, WETH, WBTC, USDC, USD, DAI];
 export let USD_STABLE_ASSETS: Address[] = [USDC, DAI, USD];
 
 //export let PRICING_ASSETS: Address[] = [WETH, WBTC, USDC, DAI, BAL, MIM, AUSD];
