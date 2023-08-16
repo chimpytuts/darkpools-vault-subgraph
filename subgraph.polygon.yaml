@@ -50,7 +50,7 @@ dataSources:
     network: matic
     source:
       address: '0x30adb2d44D98ab053041912388f9577AEbD9F6ff'
-      abi: 
+      abi: WeightedPoolFactory
       startBlock: 46347238
     mapping:
       kind: ethereum/events
