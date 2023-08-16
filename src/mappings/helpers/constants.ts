@@ -18,6 +18,7 @@ export class AddressByNetwork {
   public velas: string;
   public arbitrum: string;
   public binance: string;
+  public polygon: string;
 }
 
 let network: string = dataSource.network();
@@ -26,48 +27,63 @@ let vaultAddressByNetwork: AddressByNetwork = {
   velas: '0x82A8d8B59a13eD9df879C1f450a379182661AB59',
   arbitrum: '0x82A8d8B59a13eD9df879C1f450a379182661AB59',
   binance: '0x36B129B35Ac950b15558973fc246121923E3fD63',
+  polygon: '0x30b5c675a948e947aAc6eD4fC74439361eEa5972'
+};
+
+let wmaticAddressByNetwork: AddressByNetwork = {
+  velas: '0x0d500b1d8e8ef31e21c99d1db9a6444d3adf1270',
+  arbitrum: '0x0d500b1d8e8ef31e21c99d1db9a6444d3adf1270',
+  binance: '0x0d500b1d8e8ef31e21c99d1db9a6444d3adf1270',
+  polygon: '0x0d500b1d8e8ef31e21c99d1db9a6444d3adf1270'
 };
 
 let wethAddressByNetwork: AddressByNetwork = {
   velas: '0x74b23882a30290451A17c44f4F05243b6b58C76d',
   arbitrum: '0x82af49447d8a07e3bd95bd0d56f35241523fbab1',
   binance: '0x2170ed0880ac9a755fd29b2688956bd959f933f8',
+  polygon: '0x7ceb23fd6bc0add59e62ac25578270cff1b9f619'
 };
 
 let wbtcAddressByNetwork: AddressByNetwork = {
   velas: '0x321162Cd933E2Be498Cd2267a90534A804051b11',
   arbitrum: '0x2f2a2543b76a4166549f7aab2e75bef0aefc5b0f',
   binance: '0x7130d2a12b9bcbfae4f2634d864a1ee1ce3ead9c',
+  polygon: '0x1bfd67037b42cf73acf2047067bd4f2c47d9bfd6'
 };
 
 let wbnbAddressByNetwork: AddressByNetwork = {
   velas: '0xbb4cdb9cbd36b01bd1cbaebf2de08d9173bc095c',
   arbitrum: '0xbb4cdb9cbd36b01bd1cbaebf2de08d9173bc095c',
   binance: '0xbb4cdb9cbd36b01bd1cbaebf2de08d9173bc095c',
+  polygon: '0xecdcb5b88f8e3c15f95c720c51c71c9e2080525d'
 };
 
 let usdAddressByNetwork: AddressByNetwork = {
   velas: '0x049d68029688eabf473097a2fc38ef61633a3c7a',
   arbitrum: '0xfd086bc7cd5c481dcc9c85ebe478a1c0b69fcbb9',
   binance: '0x55d398326f99059ff775485246999027b3197955',
+  polygon: '0xc2132d05d31c914a87c6611c10748aeb04b58e8f'
 };
 
 let usdcAddressByNetwork: AddressByNetwork = {
   velas: '0x04068da6c83afcfa0e13ba15a6696662335d5b75',
   arbitrum: '0xff970a61a04b1ca14834a43f5de4533ebddb5cc8',
   binance: '0x8ac76a51cc950d9822d68b83fe1ad97b32cd580d',
+  polygon: '0x2791bca1f2de4661ed88a30c99a7a9449aa84174'
 };
 
 let daiAddressByNetwork: AddressByNetwork = {
   velas: '0x8d11ec38a3eb5e956b052f67da8bdc9bef8abf3e',
   arbitrum: '0xda10009cbd5d07dd0cecc66161fc93d7c9000da1',
   binance: '0x1af3f329e8be154074d8769d1ffa4ee058b1dbc3',
+  polygon: '0x8f3cf7ad23cd3cadbd9735aff958023239c6a063'
 };
 
 let busdAddressByNetwork: AddressByNetwork = {
   velas: '0xc9baa8cfdde8e328787e29b4b078abf2dadc2055',
   arbitrum: '0xc9baa8cfdde8e328787e29b4b078abf2dadc2055',
   binance: '0xc9baa8cfdde8e328787e29b4b078abf2dadc2055',
+  polygon: '0x9C9e5fD8bbc25984B178FdCE6117Defa39d2db39'
 };
 
 function forNetwork(addressByNetwork: AddressByNetwork): Address {
@@ -75,12 +91,15 @@ function forNetwork(addressByNetwork: AddressByNetwork): Address {
     return Address.fromString(addressByNetwork.velas);
   } else if (network == 'arbitrum-one') {
     return Address.fromString(addressByNetwork.arbitrum);
+  } else if (network == 'matic') {
+    return Address.fromString(addressByNetwork.polygon);
   }
   return Address.fromString(addressByNetwork.binance);
 }
 
 export let VAULT_ADDRESS = forNetwork(vaultAddressByNetwork);
 export let WETH: Address = forNetwork(wethAddressByNetwork);
+export let WMATIC: Address = forNetwork(wmaticAddressByNetwork);
 export let WBNB: Address = forNetwork(wbnbAddressByNetwork);
 export let WBTC: Address = forNetwork(wbtcAddressByNetwork);
 export let USD: Address = forNetwork(usdAddressByNetwork);
@@ -93,8 +112,8 @@ export let DAI: Address = forNetwork(daiAddressByNetwork);
 
 export let BUSD: Address = forNetwork(busdAddressByNetwork);
 
-export let PRICING_ASSETS: Address[] = [WBNB, WETH, WBTC, USDC, USD, DAI];
-export let USD_STABLE_ASSETS: Address[] = [USDC, DAI, USD];
+export let PRICING_ASSETS: Address[] = [WBNB, WMATIC, WETH, WBTC, USDC, USD, DAI];
+export let USD_STABLE_ASSETS: Address[] = [USD, USDC, DAI];
 
 //export let PRICING_ASSETS: Address[] = [WETH, WBTC, USDC, DAI, BAL, MIM, AUSD];
 //export let USD_STABLE_ASSETS: Address[] = [USDC, DAI, AUSD, MIM];

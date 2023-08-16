@@ -1,6 +1,6 @@
 # darkpools-vault-subgraph
 
-This document provides a step-by-step guide on how to deploy your subgraph to both Binance Smart Chain and Arbitrum using the provided scripts in your `package.json` file. Make sure you have completed the code generation, building, and authentication steps before proceeding with the deployment.
+This document provides a step-by-step guide on how to deploy your subgraph to BSC, Arbitrum anf Polygon using the provided scripts in your `package.json` file. Make sure you have completed the code generation, building, and authentication steps before proceeding with the deployment.
 
 ## Table of Contents
 
@@ -11,6 +11,7 @@ This document provides a step-by-step guide on how to deploy your subgraph to bo
 5. Authentication
 6. Deploying to Binance Smart Chain
 7. Deploying to Arbitrum
+8. Deploying to Polygon
 
 ## 1. Prerequisites
 
@@ -32,6 +33,7 @@ Run the following commands to generate the subgraph's code:
 ```bash
 npm run codegen:arbitrum
 npm run codegen:binance
+npm run codegen:polygon
 ```
 
 ## 4. Building
@@ -41,6 +43,7 @@ After code generation, you need to build your subgraph using the following comma
 ```bash
 npm run build:arbitrum
 npm run build:binance
+npm run build:polygon
 ```
 
 ## 5. Authentication
@@ -67,8 +70,16 @@ Deploy your subgraph to Arbitrum using the following command:
 npm run deploy:arbitrum
 ```
 
+## 8. Deploying to Polygon
+
+Deploy your subgraph to Polygon using the following command:
+
+```bash
+npm run deploy:polygon
+```
+
 ---
 
-Congratulations! You've successfully deployed your subgraph to both Binance Smart Chain and Arbitrum using the provided scripts. Your subgraph should now be accessible and queryable on TheGraph's network.
+Congratulations! Your subgraph should now be accessible and queryable on TheGraph's network.
 
 
