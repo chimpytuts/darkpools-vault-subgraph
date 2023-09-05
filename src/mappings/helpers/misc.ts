@@ -54,10 +54,10 @@ export function getPoolShare(poolId: string, lpAddress: Address): PoolShare {
 
 export function createPoolShareEntity(poolId: string, lpAddress: Address): PoolShare {
   createUserEntity(lpAddress);
-
   let id = getPoolShareId(getPoolAddress(poolId), lpAddress);
   let poolShare = new PoolShare(id);
 
+  poolShare.percentage = ZERO_BD;
   poolShare.userAddress = lpAddress.toHex();
   poolShare.poolId = poolId;
   poolShare.balance = ZERO_BD;
@@ -156,6 +156,13 @@ export function getTokenPriceId(
     .concat(stableTokenAddress.toHexString())
     .concat('-')
     .concat(block.toString());
+}
+
+export function getHistoricalBalanceId(poolId: string, tx: string, logIndex: string): string {
+  return `${tx}-${poolId}-${logIndex}`;
+}
+export function getHistoricalTokenId(tokenAddress: string, tx: string, user: string, amount: BigDecimal): string {
+  return `${tokenAddress}-${tx}-${user}-${amount.toString()}`;
 }
 
 export function createPoolSnapshot(poolId: string, timestamp: i32): void {
@@ -326,14 +333,13 @@ export function updateTokenBalances(
     let latestPrice = LatestPrice.load(latestPriceId);
 
     if (latestPrice) {
-      if(tokenAddress == Address.fromString("0x0d500b1d8e8ef31e21c99d1db9a6444d3adf1270"))
-      {
-        const highestPriceForAvax = BigDecimal.fromString('500')
-        if (latestPrice.priceUSD.le(highestPriceForAvax)) { 
+      if (tokenAddress == Address.fromString('0x0d500b1d8e8ef31e21c99d1db9a6444d3adf1270')) {
+        const highestPriceForAvax = BigDecimal.fromString('500');
+        if (latestPrice.priceUSD.le(highestPriceForAvax)) {
           token.totalBalanceUSD = token.totalBalanceNotional.times(latestPrice.priceUSD);
           token.totalVolumeUSD = token.totalVolumeUSD.plus(notionalBalance.times(latestPrice.priceUSD));
         }
-      } else { 
+      } else {
         token.totalBalanceUSD = token.totalBalanceNotional.times(latestPrice.priceUSD);
         token.totalVolumeUSD = token.totalVolumeUSD.plus(notionalBalance.times(latestPrice.priceUSD));
       }
