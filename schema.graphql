@@ -41,6 +41,7 @@ type Pool @entity {
   swaps: [Swap!] @derivedFrom(field: "poolId")
   shares: [PoolShare!] @derivedFrom(field: "poolId")
   historicalValues: [PoolHistoricalLiquidity!] @derivedFrom(field: "poolId")
+  historicalBalances: [PoolHistoricalBalance!] @derivedFrom(field: "poolId")
 
   # LiquidityBootstrappingPool Only
   weightUpdates: [GradualWeightUpdate!] @derivedFrom(field: "poolId")
@@ -94,6 +95,7 @@ type PoolShare @entity {
   userAddress: User!
   poolId: Pool!
   balance: BigDecimal!
+  percentage: BigDecimal!
 }
 
 type User @entity {
@@ -184,6 +186,21 @@ type PoolHistoricalLiquidity @entity {
   pricingAsset: Bytes! # address of stable asset
   block: BigInt!
   timestamp: Int!
+}
+type PoolHistoricalBalance @entity {
+  id: ID!
+  poolId: Pool!
+  block: BigInt!
+  timestamp: Int!
+  tokens: [HistoricalToken!] @derivedFrom(field: "historicalBalanceId")
+}
+
+type HistoricalToken @entity {
+  id: ID!
+  historicalBalanceId: PoolHistoricalBalance!
+  token: PoolToken!
+  balance: BigDecimal!
+  balanceUsd: BigDecimal!
 }
 
 type TokenPrice @entity {
