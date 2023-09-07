@@ -16,7 +16,7 @@ import {
 } from '../../types/schema';
 import { ERC20 } from '../../types/Vault/ERC20';
 import { Swap as SwapEvent } from '../../types/Vault/Vault';
-import { ONE_BD, TokenBalanceEvent, ZERO, ZERO_BD } from './constants';
+import { NATIVE_ASSET, ONE_BD, TokenBalanceEvent, ZERO, ZERO_BD } from './constants';
 import { getPoolAddress } from './pools';
 
 const DAY = 24 * 60 * 60;
@@ -333,7 +333,7 @@ export function updateTokenBalances(
     let latestPrice = LatestPrice.load(latestPriceId);
 
     if (latestPrice) {
-      if (tokenAddress == Address.fromString('0x0d500b1d8e8ef31e21c99d1db9a6444d3adf1270')) {
+      if (tokenAddress == NATIVE_ASSET) {
         const highestPriceForAvax = BigDecimal.fromString('500');
         if (latestPrice.priceUSD.le(highestPriceForAvax)) {
           token.totalBalanceUSD = token.totalBalanceNotional.times(latestPrice.priceUSD);
