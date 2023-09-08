@@ -164,7 +164,9 @@ export function getHistoricalBalanceId(poolId: string, tx: string, logIndex: str
 export function getHistoricalTokenId(tokenAddress: string, tx: string, user: string, amount: BigDecimal): string {
   return `${tokenAddress}-${tx}-${user}-${amount.toString()}`;
 }
-
+export function getHistoricalTotalSharesValueId(txHash: string, logIndex: string): string {
+  return `${txHash}-${logIndex}-hbsvid`;
+}
 export function createPoolSnapshot(poolId: string, timestamp: i32): void {
   let dayTimestamp = timestamp - (timestamp % DAY); // Todays Timestamp
 
