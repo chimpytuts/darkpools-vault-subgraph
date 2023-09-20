@@ -30,7 +30,7 @@ dataSources:
       abis:
         - name: Vault
           file: ./abis/Vault.json
-        - name: ERC2056062385
+        - name: ERC20
           file: ./abis/ERC20.json
         - name: WeightedPool
           file: ./abis/WeightedPool.json

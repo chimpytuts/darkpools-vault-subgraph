@@ -42,7 +42,8 @@ type Pool @entity {
   shares: [PoolShare!] @derivedFrom(field: "poolId")
   historicalValues: [PoolHistoricalLiquidity!] @derivedFrom(field: "poolId")
   historicalBalances: [PoolHistoricalBalance!] @derivedFrom(field: "poolId")
-
+  historicalTotalShares: [HistoricalTotalShare!] @derivedFrom(field: "poolId")
+  historicalUserBalances: [HistoricalUserBalance!] @derivedFrom(field: "poolId")
   # LiquidityBootstrappingPool Only
   weightUpdates: [GradualWeightUpdate!] @derivedFrom(field: "poolId")
 
@@ -290,4 +291,24 @@ type BalancerSnapshot @entity {
   totalSwapCount: BigInt!
   totalSwapVolume: BigDecimal!
   totalSwapFee: BigDecimal!
+}
+
+type HistoricalBalance @entity {
+  id: ID!
+  hirstoricalUserBalance: HistoricalUserBalance!
+  value: BigDecimal!
+  timestamp: Int!
+}
+
+type HistoricalUserBalance @entity {
+  id: ID!
+  address: Bytes!
+  poolId: Pool!
+  balances: [HistoricalBalance!]! @derivedFrom(field: "hirstoricalUserBalance")
+}
+type HistoricalTotalShare @entity {
+  id: ID!
+  totalShares: BigDecimal!
+  timestamp: Int!
+  poolId: Pool!
 }
