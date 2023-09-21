@@ -31,7 +31,7 @@
             {
                 "address": "0x8ac76a51cc950d9822d68b83fe1ad97b32cd580d",
                 "chainId": 56,
-                "decimals": 6,
+                "decimals": 18,
                 "logoURI": "https://assets.coingecko.com/coins/images/6319/large/USD_Coin_icon.png",
                 "name": "USD Coin",
                 "symbol": "USDC"
@@ -55,10 +55,34 @@
             {
                 "address": "0x55d398326f99059ff775485246999027b3197955",
                 "chainId": 56,
-                "decimals": 6,
+                "decimals": 18,
                 "logoURI": "https://assets.coingecko.com/coins/images/325/large/Tether-logo.png",
                 "name": "Tether USD",
                 "symbol": "USDT"
+            },
+            {
+                "address": "0x55d398326f99059ff775485246999027b3197955",
+                "chainId": 56,
+                "decimals": 18,
+                "logoURI": "https://assets.coingecko.com/coins/images/325/large/Tether-logo.png",
+                "name": "Tether USD",
+                "symbol": "USDT"
+            },
+            {
+                "address": "0x250632378e573c6be1ac2f97fcdf00515d0aa91b",
+                "chainId": 56,
+                "decimals": 18,
+                "logoURI": "https://assets.coingecko.com/coins/images/13804/small/Binnace.png",
+                "name": "Binance ETH",
+                "symbol": "BETH"
+            },
+            {
+                "address": "0xB0D502E938ed5f4df2E681fE6E419ff29631d62b",
+                "chainId": 56,
+                "decimals": 18,
+                "logoURI": "https://assets.coingecko.com/coins/images/24413/small/STG_LOGO.png",
+                "name": "Stargate Token",
+                "symbol": "STG"
             }
         ],
         "version": {
