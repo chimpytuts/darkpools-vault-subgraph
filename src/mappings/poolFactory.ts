@@ -1,12 +1,18 @@
 import { ZERO_BD, VAULT_ADDRESS, ZERO } from './helpers/constants';
 import { PoolType } from './helpers/pools';
 
-import { newPoolEntity, createPoolTokenEntity, scaleDown, getBalancerSnapshot } from './helpers/misc';
+import {
+  newPoolEntity,
+  createPoolTokenEntity,
+  scaleDown,
+  getBalancerSnapshot,
+  generateCombinations,
+} from './helpers/misc';
 import { updatePoolWeights } from './helpers/weighted';
 
-import { BigInt, Address, Bytes } from '@graphprotocol/graph-ts';
+import { BigInt, Address, Bytes, log } from '@graphprotocol/graph-ts';
 import { PoolCreated } from '../types/WeightedPoolFactory/WeightedPoolFactory';
-import { Balancer, Pool } from '../types/schema';
+import { Balancer, Pool, Token, TokenPair } from '../types/schema';
 
 // datasource
 import { WeightedPool as WeightedPoolTemplate } from '../types/templates';
@@ -34,15 +40,31 @@ function createWeightedLikePool(event: PoolCreated, poolType: string): string {
 
   let vaultContract = Vault.bind(VAULT_ADDRESS);
   let tokensCall = vaultContract.try_getPoolTokens(poolId);
-
+  let pairs = new Array<string>();
   if (!tokensCall.reverted) {
     let tokens = tokensCall.value.value0;
     pool.tokensList = changetype<Bytes[]>(tokens);
+    pool.save();
+    let combinations: string[] = [];
+    generateCombinations(combinations, tokens, [], 0);
 
     for (let i: i32 = 0; i < tokens.length; i++) {
       createPoolTokenEntity(poolId.toHexString(), tokens[i]);
     }
+
+    for (let i: i32 = 0; i < combinations.length; i++) {
+      let poolTokenPair = TokenPair.load(combinations[i]);
+      if (!poolTokenPair) {
+        poolTokenPair = new TokenPair(combinations[i]);
+        poolTokenPair.balanceToken0 = ZERO_BD;
+        poolTokenPair.balanceToken1 = ZERO_BD;
+      }
+      poolTokenPair.save();
+      pairs.push(combinations[i]);
+      log.warning('ADDED - {}', [pairs.length.toString()]);
+    }
   }
+  pool.pairs = pairs;
   pool.save();
 
   // Load pool with initial weights

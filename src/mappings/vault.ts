@@ -17,6 +17,7 @@ import {
   HistoricalToken,
   Token,
   PoolToken,
+  TokenPair,
 } from '../types/schema';
 import {
   tokenToDecimal,
@@ -104,6 +105,24 @@ function saveHistoricalToken(
   historicalToken.save();
 }
 
+function addTokenPairBalance(pairs: string[], tokenAddress: string, tokenAmount: BigDecimal): void {
+  log.warning('HERE - {}', [pairs.length.toString()]);
+  for (let i: i32 = 0; i < pairs.length; i++) {
+    let pair = TokenPair.load(pairs[i]);
+    if (!pair) continue;
+    let splited = pair.id.split('-');
+    log.warning('SPLITED - {}', splited);
+    log.warning('tokenAddress - {}', [tokenAddress]);
+    if (splited[0] == tokenAddress) {
+      pair.balanceToken0 = tokenAmount;
+      pair.save();
+    } else if (splited[1] == tokenAddress) {
+      pair.balanceToken1 = tokenAmount;
+      pair.save();
+    }
+  }
+}
+
 function handlePoolJoined(event: PoolBalanceChanged): void {
   let poolId: string = event.params.poolId.toHexString();
   let amounts: BigInt[] = event.params.deltas;
@@ -172,6 +191,7 @@ function handlePoolJoined(event: PoolBalanceChanged): void {
       tokenAmountInUSD,
       phbId
     );
+    addTokenPairBalance(pool.pairs, poolToken.address, newAmount);
   }
   phb.save();
   join.save();
@@ -262,6 +282,7 @@ function handlePoolExited(event: PoolBalanceChanged): void {
       tokenAmountOutUSD,
       phbId
     );
+    addTokenPairBalance(pool.pairs, poolToken.address, newAmount);
   }
 
   exit.save();

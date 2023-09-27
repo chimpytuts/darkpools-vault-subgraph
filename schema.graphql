@@ -38,6 +38,7 @@ type Pool @entity {
   tokensList: [Bytes!]!
 
   tokens: [PoolToken!] @derivedFrom(field: "poolId")
+  pairs: [TokenPair!]!
   swaps: [Swap!] @derivedFrom(field: "poolId")
   shares: [PoolShare!] @derivedFrom(field: "poolId")
   historicalValues: [PoolHistoricalLiquidity!] @derivedFrom(field: "poolId")
@@ -78,6 +79,12 @@ type PoolToken @entity {
 
   # WeightedPool Only
   weight: BigDecimal
+}
+type TokenPair @entity {
+  id: ID!
+  pools: [Pool!]! @derivedFrom(field: "pairs")
+  balanceToken0: BigDecimal!
+  balanceToken1: BigDecimal!
 }
 
 type PriceRateProvider @entity {

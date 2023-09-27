@@ -68,6 +68,7 @@ export function createPoolShareEntity(poolId: string, lpAddress: Address): PoolS
 // pool entity when created
 export function newPoolEntity(poolId: string): Pool {
   let pool = new Pool(poolId);
+
   pool.vaultID = '2';
   pool.strategyType = i32(parseInt(poolId.slice(42, 46)));
   pool.tokensList = [];
@@ -78,7 +79,7 @@ export function newPoolEntity(poolId: string): Pool {
   pool.totalShares = ZERO_BD;
   pool.swapsCount = BigInt.fromI32(0);
   pool.holdersCount = BigInt.fromI32(0);
-
+  pool.pairs = [];
   return pool;
 }
 
@@ -417,4 +418,23 @@ export function getBalancerSnapshot(vaultId: string, timestamp: i32): BalancerSn
   }
 
   return snapshot;
+}
+
+export function generateCombinations(
+  combinations: string[],
+  tokens: Address[],
+  currentCombination: string[],
+  startIndex: i32
+): void {
+  if (currentCombination.length == 2) {
+    // If the current combination has 2 tokens, add it to the result array
+    combinations.push(currentCombination.join('-'));
+  } else {
+    // Recursively generate combinations
+    for (let i: i32 = startIndex; i < tokens.length; i++) {
+      currentCombination.push(tokens[i].toHexString());
+      generateCombinations(combinations, tokens, currentCombination, i + 1);
+      currentCombination.pop(); // Backtrack
+    }
+  }
 }
