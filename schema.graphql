@@ -38,7 +38,6 @@ type Pool @entity {
   tokensList: [Bytes!]!
 
   tokens: [PoolToken!] @derivedFrom(field: "poolId")
-  pairs: [TokenPair!]!
   swaps: [Swap!] @derivedFrom(field: "poolId")
   shares: [PoolShare!] @derivedFrom(field: "poolId")
   historicalValues: [PoolHistoricalLiquidity!] @derivedFrom(field: "poolId")
@@ -82,7 +81,6 @@ type PoolToken @entity {
 }
 type TokenPair @entity {
   id: ID!
-  pools: [Pool!]! @derivedFrom(field: "pairs")
   balanceToken0: BigDecimal!
   balanceToken1: BigDecimal!
 }
@@ -259,6 +257,7 @@ type Token @entity {
   totalVolumeNotional: BigDecimal!
   totalSwapCount: BigInt!
   latestPrice: LatestPrice # latest price of token, updated when pool liquidity changes
+  pairs: [TokenPair!]!
 }
 
 type TokenSnapshot @entity {

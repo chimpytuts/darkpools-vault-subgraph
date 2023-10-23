@@ -54,17 +54,30 @@ function createWeightedLikePool(event: PoolCreated, poolType: string): string {
 
     for (let i: i32 = 0; i < combinations.length; i++) {
       let poolTokenPair = TokenPair.load(combinations[i]);
+      let splited = combinations[i].split('-');
+      let token0 = Token.load(splited[0]);
+      let token1 = Token.load(splited[1]);
       if (!poolTokenPair) {
         poolTokenPair = new TokenPair(combinations[i]);
         poolTokenPair.balanceToken0 = ZERO_BD;
         poolTokenPair.balanceToken1 = ZERO_BD;
       }
       poolTokenPair.save();
+      let reversedId = `${splited[1]}-${splited[0]}`;
+      if (token0 && token1) {
+        if (!token0.pairs.includes(combinations[i]) && !token0.pairs.includes(reversedId)) {
+          token0.pairs = token0.pairs.concat([poolTokenPair.id]);
+        }
+        if (!token1.pairs.includes(combinations[i]) && !token1.pairs.includes(reversedId)) {
+          token1.pairs = token1.pairs.concat([poolTokenPair.id]);
+        }
+        token0.save();
+        token1.save();
+      }
       pairs.push(combinations[i]);
-      log.warning('ADDED - {}', [pairs.length.toString()]);
     }
   }
-  pool.pairs = pairs;
+  //pool.pairs = pairs;
   pool.save();
 
   // Load pool with initial weights
