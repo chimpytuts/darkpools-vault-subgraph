@@ -114,7 +114,6 @@ function addHistoricalValues(event: Transfer, pool: Pool, users: Array<string>, 
   }
   historicalShareValue.totalShares = pool.totalShares;
   historicalShareValue.save();
-  log.warning('HERE {} {}', [users.length.toString(), id]);
   for (let i: i32 = 0; i < users.length; i++) {
     let userId = `${users[i]}-${pool.id}`;
     let historicalUserBalance = HistoricalUserBalance.load(userId);

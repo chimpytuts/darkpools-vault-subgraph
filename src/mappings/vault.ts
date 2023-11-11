@@ -17,6 +17,7 @@ import {
   HistoricalToken,
   Token,
   PoolToken,
+  TokenPair,
 } from '../types/schema';
 import {
   tokenToDecimal,
@@ -86,22 +87,38 @@ export function handleBalanceChange(event: PoolBalanceChanged): void {
 }
 
 function saveHistoricalToken(
-  tokenAddress: string,
   transactionHash: string,
   userAddress: string,
   tokenId: string,
+  tokenPrice: BigDecimal,
   tokenAmount: BigDecimal,
-  tokenAmountUSD: BigDecimal,
   phbId: string
 ): void {
-  let historicalTokenId = getHistoricalTokenId(tokenAddress, transactionHash, userAddress, tokenAmount);
+  let historicalTokenId = getHistoricalTokenId(tokenId, transactionHash, userAddress, tokenAmount);
   let historicalToken = new HistoricalToken(historicalTokenId);
   historicalToken.historicalBalanceId = phbId;
   historicalToken.token = tokenId;
   historicalToken.balance = tokenAmount;
-  historicalToken.balanceUsd = tokenAmountUSD;
+  historicalToken.balanceUsd = tokenAmount.times(tokenPrice);
 
   historicalToken.save();
+}
+
+function addTokenPairBalance(pairs: string[], tokenAddress: string, tokenAmount: BigDecimal): void {
+  log.warning('HERE - {}', [pairs.length.toString()]);
+  for (let i: i32 = 0; i < pairs.length; i++) {
+    let pair = TokenPair.load(pairs[i]);
+    if (!pair) continue;
+    let splited = pair.id.split('-');
+    log.warning('SPLITED - {}', splited);
+    log.warning('tokenAddress - {}', [tokenAddress]);
+    if (splited[0] == tokenAddress) {
+      pair.balanceToken0 = tokenAmount;
+    } else if (splited[1] == tokenAddress) {
+      pair.balanceToken1 = tokenAmount;
+    }
+    pair.save();
+  }
 }
 
 function handlePoolJoined(event: PoolBalanceChanged): void {
@@ -163,19 +180,21 @@ function handlePoolJoined(event: PoolBalanceChanged): void {
     poolToken.save();
 
     updateTokenBalances(tokenAddress, tokenAmountIn, TokenBalanceEvent.JOIN, event);
-    saveHistoricalToken(
-      tokenAddress.toHexString(),
-      transactionHash.toHexString(),
-      join.sender.toHexString(),
-      poolToken.id,
-      newAmount,
-      tokenAmountInUSD,
-      phbId
-    );
+    let loaded_token = Token.load(tokenAddress.toHexString());
+    if (loaded_token) {
+      saveHistoricalToken(
+        transactionHash.toHexString(),
+        join.sender.toHexString(),
+        poolToken.id,
+        loaded_token.totalBalanceUSD.div(loaded_token.totalBalanceNotional),
+        poolToken.balance,
+        phbId
+      );
+      addTokenPairBalance(loaded_token.pairs, loaded_token.address, loaded_token.totalBalanceNotional);
+    }
   }
   phb.save();
   join.save();
-
   for (let i: i32 = 0; i < tokenAddresses.length; i++) {
     let tokenAddress: Address = Address.fromString(tokenAddresses[i].toHexString());
     if (isPricingAsset(tokenAddress)) {
@@ -252,20 +271,24 @@ function handlePoolExited(event: PoolBalanceChanged): void {
     poolToken.save();
 
     updateTokenBalances(tokenAddress, tokenAmountOut, TokenBalanceEvent.EXIT, event);
+    let loadedToken = Token.load(tokenAddress.toHexString());
 
-    saveHistoricalToken(
-      tokenAddress.toHexString(),
-      transactionHash.toHexString(),
-      exit.sender.toHexString(),
-      poolToken.id,
-      newAmount,
-      tokenAmountOutUSD,
-      phbId
-    );
+    if (loadedToken) {
+      saveHistoricalToken(
+        transactionHash.toHexString(),
+        exit.sender.toHexString(),
+        poolToken.id,
+        loadedToken.totalBalanceUSD.div(loadedToken.totalBalanceNotional),
+        poolToken.balance,
+        phbId
+      );
+      addTokenPairBalance(loadedToken.pairs, loadedToken.address, loadedToken.totalBalanceNotional);
+    } else {
+      log.error('NOT FOUND {}', [tokenAddress.toHexString()]);
+    }
   }
-
-  exit.save();
   phb.save();
+  exit.save();
   for (let i: i32 = 0; i < tokenAddresses.length; i++) {
     let tokenAddress: Address = Address.fromString(tokenAddresses[i].toHexString());
     if (isPricingAsset(tokenAddress)) {
@@ -439,37 +462,28 @@ export function handleSwapEvent(event: SwapEvent): void {
   let newOutAmount = poolTokenOut.balance.minus(tokenAmountOut);
   poolTokenOut.balance = newOutAmount;
   poolTokenOut.save();
-  var amounts = new Map<string, SwapTokenInfo>();
-  amounts.set(tokenOutAddress.toHexString(), new SwapTokenInfo(newOutAmount, poolTokenOut.id));
-  amounts.set(tokenInAddress.toHexString(), new SwapTokenInfo(newInAmount, poolTokenIn.id));
-  let tokenAddresses = pool.tokensList;
-  for (let i: i32 = 0; i < tokenAddresses.length; i++) {
-    let tokenAddress: string = tokenAddresses[i].toHexString();
-    if (amounts.has(tokenAddress)) {
-      saveHistoricalToken(
-        tokenAddress,
-        transactionHash.toHexString(),
-        swap.userAddress,
-        amounts[tokenAddress].id,
-        amounts[tokenAddress].amount,
-        valueInUSD(amounts[tokenAddress].amount, Address.fromString(tokenAddress)),
-        phbId
-      );
-    } else {
-      let poolToken = loadPoolToken(poolId.toHexString(), Address.fromString(tokenAddress));
-      if (poolToken) {
-        saveHistoricalToken(
-          tokenAddress,
-          transactionHash.toHexString(),
-          swap.userAddress,
-          poolToken.id,
-          poolToken.balance,
-          valueInUSD(poolToken.balance, Address.fromString(tokenAddress)),
-          phbId
-        );
-      }
-    }
-  }
+  // var amounts = new Map<string, SwapTokenInfo>();
+  // amounts.set(tokenOutAddress.toHexString(), new SwapTokenInfo(newOutAmount, poolTokenOut.id));
+  // amounts.set(tokenInAddress.toHexString(), new SwapTokenInfo(newInAmount, poolTokenIn.id));
+  // let tokenAddresses = pool.tokensList;
+  // for (let i: i32 = 0; i < tokenAddresses.length; i++) {
+  //   let tokenAddress: string = tokenAddresses[i].toHexString();
+  //   if (amounts.has(tokenAddress)) {
+  //     saveHistoricalToken(
+  //       tokenAddress,
+  //       transactionHash.toHexString(),
+  //       swap.userAddress,
+  //       amounts[tokenAddress].id,
+  //       amounts[tokenAddress].amount,
+  //       valueInUSD(amounts[tokenAddress].amount, Address.fromString(tokenAddress)),
+  //       phbId
+  //     );
+  //   } else {
+  //     let poolToken = loadPoolToken(poolId.toHexString(), Address.fromString(tokenAddress));
+  //     if (poolToken) {
+  //     }
+  //   }
+  // }
 
   phb.save();
   // update swap counts for token
@@ -553,5 +567,33 @@ export function handleSwapEvent(event: SwapEvent): void {
   // update volume and balances for the tokens
   // updates token snapshots as well
   updateTokenBalances(tokenInAddress, tokenAmountIn, TokenBalanceEvent.SWAP_IN, event);
+  let loadedInToken = Token.load(tokenInAddress.toHexString());
+  if (loadedInToken) {
+    addTokenPairBalance(loadedInToken.pairs, loadedInToken.address, loadedInToken.totalBalanceNotional);
+    let poolToken = loadPoolToken(poolId.toHexString(), Address.fromString(loadedInToken.address));
+    if (poolToken)
+      saveHistoricalToken(
+        transactionHash.toHexString(),
+        swap.userAddress,
+        poolToken.id,
+        loadedInToken.totalBalanceUSD.div(loadedInToken.totalBalanceNotional),
+        poolToken.balance,
+        phbId
+      );
+  }
   updateTokenBalances(tokenOutAddress, tokenAmountOut, TokenBalanceEvent.SWAP_OUT, event);
+  let loadedOutToken = Token.load(tokenOutAddress.toHexString());
+  if (loadedOutToken) {
+    addTokenPairBalance(loadedOutToken.pairs, loadedOutToken.address, loadedOutToken.totalBalanceNotional);
+    let poolToken = loadPoolToken(poolId.toHexString(), Address.fromString(loadedOutToken.address));
+    if (poolToken)
+      saveHistoricalToken(
+        transactionHash.toHexString(),
+        swap.userAddress,
+        poolToken.id,
+        loadedOutToken.totalBalanceUSD.div(loadedOutToken.totalBalanceNotional),
+        poolToken.balance,
+        phbId
+      );
+  }
 }
