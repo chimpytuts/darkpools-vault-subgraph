@@ -81,6 +81,7 @@ type PoolToken @entity {
 }
 type TokenPair @entity {
   id: ID!
+  pool: Pool!
   balanceToken0: BigDecimal!
   balanceToken1: BigDecimal!
 }
@@ -262,13 +263,11 @@ type Token @entity {
 
 type TokenSnapshot @entity {
   id: ID! # token address + dayId
+  pool: Pool!
   token: Token!
   timestamp: Int! # timestamp representing the start of day in UTC
   totalBalanceUSD: BigDecimal! # total balance of tokens across balancer
   totalBalanceNotional: BigDecimal! # underlying asset balance
-  totalVolumeUSD: BigDecimal! # amount of volume the token has moved on this day
-  totalVolumeNotional: BigDecimal! # underyling asset volume
-  totalSwapCount: BigInt!
 }
 
 type TradePair @entity {

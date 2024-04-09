@@ -82,7 +82,7 @@ export function newPoolEntity(poolId: string): Pool {
   return pool;
 }
 
-export function getPoolTokenId(poolId: string, tokenAddress: Address): string {
+export function getPoolTokenId(poolId: String, tokenAddress: Address): string {
   return poolId.concat('-').concat(tokenAddress.toHexString());
 }
 
@@ -255,7 +255,7 @@ export function createToken(tokenAddress: Address): Token {
   token.totalVolumeUSD = ZERO_BD;
   token.totalVolumeNotional = ZERO_BD;
   token.address = tokenAddress.toHexString();
-  token.pairs = []
+  token.pairs = [];
   token.save();
   return token;
 }
@@ -270,7 +270,7 @@ export function getToken(tokenAddress: Address): Token {
   return token;
 }
 
-export function getTokenSnapshot(tokenAddress: Address, event: ethereum.Event): TokenSnapshot {
+export function getTokenSnapshot(tokenAddress: Address, event: ethereum.Event): TokenSnapshot | null {
   let timestamp = event.block.timestamp.toI32();
   let dayID = timestamp / 86400;
   let id = tokenAddress.toHexString() + '-' + dayID.toString();
@@ -279,13 +279,11 @@ export function getTokenSnapshot(tokenAddress: Address, event: ethereum.Event): 
   if (dayData == null) {
     let dayStartTimestamp = dayID * 86400;
     let token = getToken(tokenAddress);
+    if (token == null) return null;
     dayData = new TokenSnapshot(id);
     dayData.timestamp = dayStartTimestamp;
-    dayData.totalSwapCount = token.totalSwapCount;
     dayData.totalBalanceUSD = token.totalBalanceUSD;
     dayData.totalBalanceNotional = token.totalBalanceNotional;
-    dayData.totalVolumeUSD = token.totalVolumeUSD;
-    dayData.totalVolumeNotional = token.totalVolumeNotional;
     dayData.token = token.id;
     dayData.save();
   }
@@ -293,7 +291,7 @@ export function getTokenSnapshot(tokenAddress: Address, event: ethereum.Event): 
   return dayData;
 }
 
-export function uptickSwapsForToken(tokenAddress: Address, event: ethereum.Event): void {
+export function uptickSwapsForToken(tokenAddress: Address, poolId: string, event: ethereum.Event): void {
   let token = getToken(tokenAddress);
   // update the overall swap count for the token
   token.totalSwapCount = token.totalSwapCount.plus(BigInt.fromI32(1));
@@ -301,12 +299,12 @@ export function uptickSwapsForToken(tokenAddress: Address, event: ethereum.Event
 
   // update the snapshots
   let snapshot = getTokenSnapshot(tokenAddress, event);
-  snapshot.totalSwapCount = token.totalSwapCount;
-  snapshot.save();
+  if (snapshot) snapshot.save();
 }
 
 export function updateTokenBalances(
   tokenAddress: Address,
+  poolId: string,
   notionalBalance: BigDecimal,
   tokenBalanceEvent: TokenBalanceEvent,
   event: ethereum.Event
@@ -348,14 +346,13 @@ export function updateTokenBalances(
       }
     }
   }
-
+  token.save();
   let tokenSnapshot = getTokenSnapshot(tokenAddress, event);
-  tokenSnapshot.totalBalanceNotional = token.totalBalanceNotional;
-  tokenSnapshot.totalVolumeNotional = token.totalVolumeNotional;
-  tokenSnapshot.totalBalanceUSD = token.totalBalanceUSD;
-  tokenSnapshot.totalVolumeUSD = token.totalVolumeUSD;
-
-  tokenSnapshot.save();
+  if (tokenSnapshot) {
+    tokenSnapshot.totalBalanceNotional = token.totalBalanceNotional;
+    tokenSnapshot.totalBalanceUSD = token.totalBalanceUSD;
+    tokenSnapshot.save();
+  }
   token.save();
 }
 
