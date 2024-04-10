@@ -68,10 +68,10 @@ function createWeightedLikePool(event: PoolCreated, poolType: string): string {
       poolTokenPair.save();
       let reversedId = `${pool.id}-${splited[1]}-${splited[0]}`;
       if (token0 && token1) {
-        if (!token0.pairs.includes(combinations[i]) && !token0.pairs.includes(reversedId)) {
+        if (!token0.pairs.includes(id) && !token0.pairs.includes(reversedId)) {
           token0.pairs = token0.pairs.concat([poolTokenPair.id]);
         }
-        if (!token1.pairs.includes(combinations[i]) && !token1.pairs.includes(reversedId)) {
+        if (!token1.pairs.includes(id) && !token1.pairs.includes(reversedId)) {
           token1.pairs = token1.pairs.concat([poolTokenPair.id]);
         }
         token0.save();

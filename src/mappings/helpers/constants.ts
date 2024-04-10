@@ -120,7 +120,7 @@ export let DAI: Address = forNetwork(daiAddressByNetwork);
 export let BUSD: Address = forNetwork(busdAddressByNetwork);
 export let NATIVE_ASSET: Address = forNetwork(nativeAssetAddressByNetwork);
 
-export let PRICING_ASSETS: Address[] = [WBNB, WMATIC, WETH, WBTC, USDC, USD, DAI];
+export let PRICING_ASSETS: Address[] = [];
 export let USD_STABLE_ASSETS: Address[] = [USD, USDC, DAI];
 
 //export let PRICING_ASSETS: Address[] = [WETH, WBTC, USDC, DAI, BAL, MIM, AUSD];

@@ -179,7 +179,7 @@ function handlePoolJoined(event: PoolBalanceChanged): void {
     poolToken.balance = newAmount;
     poolToken.save();
 
-    updateTokenBalances(tokenAddress, tokenAmountIn, TokenBalanceEvent.JOIN, event);
+    updateTokenBalances(tokenAddress, poolId, tokenAmountIn, TokenBalanceEvent.JOIN, event);
     let loaded_token = Token.load(tokenAddress.toHexString());
     if (loaded_token) {
       saveHistoricalToken(
@@ -270,7 +270,7 @@ function handlePoolExited(event: PoolBalanceChanged): void {
     poolToken.balance = newAmount;
     poolToken.save();
 
-    updateTokenBalances(tokenAddress, tokenAmountOut, TokenBalanceEvent.EXIT, event);
+    updateTokenBalances(tokenAddress, poolId, tokenAmountOut, TokenBalanceEvent.EXIT, event);
     let loadedToken = Token.load(tokenAddress.toHexString());
 
     if (loadedToken) {
@@ -488,8 +488,8 @@ export function handleSwapEvent(event: SwapEvent): void {
   phb.save();
   // update swap counts for token
   // updates token snapshots as well
-  uptickSwapsForToken(tokenInAddress, event);
-  uptickSwapsForToken(tokenOutAddress, event);
+  uptickSwapsForToken(tokenInAddress, poolId.toHexString(), event);
+  uptickSwapsForToken(tokenOutAddress, poolId.toHexString(), event);
 
   let tradePair = getTradePair(tokenInAddress, tokenOutAddress);
   tradePair.totalSwapVolume = tradePair.totalSwapVolume.plus(swapValueUSD);
@@ -566,7 +566,7 @@ export function handleSwapEvent(event: SwapEvent): void {
 
   // update volume and balances for the tokens
   // updates token snapshots as well
-  updateTokenBalances(tokenInAddress, tokenAmountIn, TokenBalanceEvent.SWAP_IN, event);
+  updateTokenBalances(tokenInAddress, poolId.toHexString(), tokenAmountIn, TokenBalanceEvent.SWAP_IN, event);
   let loadedInToken = Token.load(tokenInAddress.toHexString());
   if (loadedInToken) {
     addTokenPairBalance(loadedInToken.pairs, loadedInToken.address, loadedInToken.totalBalanceNotional);
@@ -581,7 +581,7 @@ export function handleSwapEvent(event: SwapEvent): void {
         phbId
       );
   }
-  updateTokenBalances(tokenOutAddress, tokenAmountOut, TokenBalanceEvent.SWAP_OUT, event);
+  updateTokenBalances(tokenOutAddress, poolId.toHexString(), tokenAmountOut, TokenBalanceEvent.SWAP_OUT, event);
   let loadedOutToken = Token.load(tokenOutAddress.toHexString());
   if (loadedOutToken) {
     addTokenPairBalance(loadedOutToken.pairs, loadedOutToken.address, loadedOutToken.totalBalanceNotional);
