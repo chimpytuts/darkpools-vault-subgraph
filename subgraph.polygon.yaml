@@ -8,9 +8,9 @@ dataSources:
     name: Vault
     network: matic
     source:
-      address: "0x30b5c675a948e947aAc6eD4fC74439361eEa5972"
+      address: "0xBC77248Ded7b5C1Cd32B0Ce1533421c332BBfa0b"
       abi: Vault
-      startBlock: 46347238
+      startBlock: 50653379
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.6
@@ -50,9 +50,9 @@ dataSources:
     name: WeightedPoolFactory
     network: matic
     source:
-      address: "0x30adb2d44D98ab053041912388f9577AEbD9F6ff"
+      address: "0x5a2a99bcc150254c59bd7b0c714874c84b0bb5a5"
       abi: WeightedPoolFactory
-      startBlock: 46347238
+      startBlock: 50653391
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.6

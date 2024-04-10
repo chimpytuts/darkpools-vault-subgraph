@@ -47,23 +47,26 @@ function createWeightedLikePool(event: PoolCreated, poolType: string): string {
     pool.save();
     let combinations: string[] = [];
     generateCombinations(combinations, tokens, [], 0);
-
+    log.warning('HERE {}', [pool.id]);
+    log.warning('TOKENS {}', [tokens.length.toString()]);
     for (let i: i32 = 0; i < tokens.length; i++) {
       createPoolTokenEntity(poolId.toHexString(), tokens[i]);
     }
 
     for (let i: i32 = 0; i < combinations.length; i++) {
-      let poolTokenPair = TokenPair.load(combinations[i]);
+      let id = `${pool.id}-${combinations[i]}`;
+      let poolTokenPair = TokenPair.load(id);
       let splited = combinations[i].split('-');
       let token0 = Token.load(splited[0]);
       let token1 = Token.load(splited[1]);
       if (!poolTokenPair) {
-        poolTokenPair = new TokenPair(combinations[i]);
+        poolTokenPair = new TokenPair(id);
         poolTokenPair.balanceToken0 = ZERO_BD;
         poolTokenPair.balanceToken1 = ZERO_BD;
+        poolTokenPair.pool = pool.id;
       }
       poolTokenPair.save();
-      let reversedId = `${splited[1]}-${splited[0]}`;
+      let reversedId = `${pool.id}-${splited[1]}-${splited[0]}`;
       if (token0 && token1) {
         if (!token0.pairs.includes(combinations[i]) && !token0.pairs.includes(reversedId)) {
           token0.pairs = token0.pairs.concat([poolTokenPair.id]);
