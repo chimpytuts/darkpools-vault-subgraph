@@ -5,6 +5,11 @@
         "internalType": "contract IVault",
         "name": "vault",
         "type": "address"
+      },
+      {
+        "internalType": "address",
+        "name": "defaultPoolOwner",
+        "type": "address"
       }
     ],
     "stateMutability": "nonpayable",
@@ -51,9 +56,9 @@
         "type": "uint256"
       },
       {
-        "internalType": "address",
-        "name": "owner",
-        "type": "address"
+        "internalType": "bytes32",
+        "name": "salt",
+        "type": "bytes32"
       }
     ],
     "name": "create",
@@ -65,6 +70,50 @@
       }
     ],
     "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "getCreationCode",
+    "outputs": [
+      {
+        "internalType": "bytes",
+        "name": "",
+        "type": "bytes"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "getCreationCodeContracts",
+    "outputs": [
+      {
+        "internalType": "address",
+        "name": "contractA",
+        "type": "address"
+      },
+      {
+        "internalType": "address",
+        "name": "contractB",
+        "type": "address"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "getDefaultPoolOwner",
+    "outputs": [
+      {
+        "internalType": "address",
+        "name": "defaultPoolOwner",
+        "type": "address"
+      }
+    ],
+    "stateMutability": "view",
     "type": "function"
   },
   {
@@ -115,6 +164,25 @@
       }
     ],
     "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "newOwner",
+        "type": "address"
+      }
+    ],
+    "name": "setDefaultPoolOwner",
+    "outputs": [
+      {
+        "internalType": "address",
+        "name": "defaultPoolOwner",
+        "type": "address"
+      }
+    ],
+    "stateMutability": "nonpayable",
     "type": "function"
   }
 ]

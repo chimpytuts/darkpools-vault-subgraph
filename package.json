@@ -13,7 +13,8 @@
     "test": "jest ./test/*.test.ts",
     "deploy:arbitrum": "graph deploy chimpytuts/darkpools-main-arbitrum subgraph.arbitrum.yaml",
     "deploy:binance": "graph deploy chimpytuts/darkpools-main-binance subgraph.binance.yaml",
-    "deploy:polygon": "graph deploy chimpytuts/darkpools-main-polygon subgraph.polygon.yaml"
+    "deploy:polygon": "graph deploy chimpytuts/darkpools-main-polygon subgraph.polygon.yaml",
+    "deploy:dev": "graph deploy ruslanzhezh/wp subgraph.polygon.yaml --access-token 1a40baf70599e46b5b122fc6e2e8bf5b"
   },
   "jest": {
     "globals": {

@@ -138,7 +138,7 @@ function handlePoolJoined(event: PoolBalanceChanged): void {
   let joinId = transactionHash.toHexString().concat(logIndex.toString());
   let join = new JoinExit(joinId);
   join.sender = event.params.liquidityProvider;
-  let joinAmounts = new Array<BigDecimal>(amounts.length);
+  let joinAmounts = new Array<BigDecimal>();
   for (let i: i32 = 0; i < tokenAddresses.length; i++) {
     let tokenAddress: Address = Address.fromString(tokenAddresses[i].toHexString());
     let poolToken = loadPoolToken(poolId, tokenAddress);
@@ -146,7 +146,7 @@ function handlePoolJoined(event: PoolBalanceChanged): void {
       throw new Error('poolToken not found');
     }
     let joinAmount = scaleDown(amounts[i], poolToken.decimals);
-    joinAmounts[i] = joinAmount;
+    joinAmounts.push(joinAmount);
   }
   let userAddress = event.params.liquidityProvider.toHexString();
   join.type = 'Join';
@@ -229,7 +229,7 @@ function handlePoolExited(event: PoolBalanceChanged): void {
   let exitId = transactionHash.toHexString().concat(logIndex.toString());
   let exit = new JoinExit(exitId);
   exit.sender = event.params.liquidityProvider;
-  let exitAmounts = new Array<BigDecimal>(amounts.length);
+  let exitAmounts = new Array<BigDecimal>();
 
   for (let i: i32 = 0; i < tokenAddresses.length; i++) {
     let tokenAddress: Address = Address.fromString(tokenAddresses[i].toHexString());
@@ -238,7 +238,7 @@ function handlePoolExited(event: PoolBalanceChanged): void {
       throw new Error('poolToken not found');
     }
     let exitAmount = scaleDown(amounts[i].neg(), poolToken.decimals);
-    exitAmounts[i] = exitAmount;
+    exitAmounts.push(exitAmount);
   }
   exit.type = 'Exit';
   exit.amounts = exitAmounts;

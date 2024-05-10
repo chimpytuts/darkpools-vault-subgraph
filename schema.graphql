@@ -84,6 +84,7 @@ type TokenPair @entity {
   pool: Pool!
   balanceToken0: BigDecimal!
   balanceToken1: BigDecimal!
+  pool: Pool!
 }
 
 type PriceRateProvider @entity {

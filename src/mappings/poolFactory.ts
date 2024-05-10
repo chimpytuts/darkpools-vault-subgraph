@@ -47,13 +47,14 @@ function createWeightedLikePool(event: PoolCreated, poolType: string): string {
     pool.save();
     let combinations: string[] = [];
     generateCombinations(combinations, tokens, [], 0);
-
+    log.warning('HERE {}', [pool.id]);
+    log.warning('TOKENS {}', [tokens.length.toString()]);
     for (let i: i32 = 0; i < tokens.length; i++) {
       createPoolTokenEntity(poolId.toHexString(), tokens[i]);
     }
 
     for (let i: i32 = 0; i < combinations.length; i++) {
-      let id = pool.id + '-' + combinations[i];
+      let id = `${pool.id}-${combinations[i]}`;
       let poolTokenPair = TokenPair.load(id);
       let splited = combinations[i].split('-');
       let token0 = Token.load(splited[0]);
