@@ -39,7 +39,7 @@ import {
 } from './helpers/misc';
 import { updatePoolWeights } from './helpers/weighted';
 import { isUSDStable, isPricingAsset, updatePoolLiquidity, valueInUSD } from './pricing';
-import { MIN_VIABLE_LIQUIDITY, ONE_BD, TokenBalanceEvent, ZERO, ZERO_BD } from './helpers/constants';
+import { MIN_VIABLE_LIQUIDITY, ONE_BD, TokenBalanceEvent, ZAPPER_ADDRESS, ZERO, ZERO_BD } from './helpers/constants';
 import { isStableLikePool, isVariableWeightPool } from './helpers/pools';
 
 /************************************
@@ -137,7 +137,11 @@ function handlePoolJoined(event: PoolBalanceChanged): void {
 
   let joinId = transactionHash.toHexString().concat(logIndex.toString());
   let join = new JoinExit(joinId);
-  join.sender = event.params.liquidityProvider;
+  let sender = event.params.liquidityProvider;
+  if (sender == ZAPPER_ADDRESS) {
+    sender = event.transaction.from;
+  }
+  join.sender = sender;
   let joinAmounts = new Array<BigDecimal>();
   for (let i: i32 = 0; i < tokenAddresses.length; i++) {
     let tokenAddress: Address = Address.fromString(tokenAddresses[i].toHexString());
@@ -148,7 +152,7 @@ function handlePoolJoined(event: PoolBalanceChanged): void {
     let joinAmount = scaleDown(amounts[i], poolToken.decimals);
     joinAmounts.push(joinAmount);
   }
-  let userAddress = event.params.liquidityProvider.toHexString();
+  let userAddress = sender.toHexString();
   join.type = 'Join';
   join.amounts = joinAmounts;
   join.pool = event.params.poolId.toHexString();
@@ -228,7 +232,11 @@ function handlePoolExited(event: PoolBalanceChanged): void {
 
   let exitId = transactionHash.toHexString().concat(logIndex.toString());
   let exit = new JoinExit(exitId);
-  exit.sender = event.params.liquidityProvider;
+  let sender = event.params.liquidityProvider;
+  if (sender == ZAPPER_ADDRESS) {
+    sender = event.transaction.from;
+  }
+  exit.sender = sender;
   let exitAmounts = new Array<BigDecimal>();
 
   for (let i: i32 = 0; i < tokenAddresses.length; i++) {
@@ -243,7 +251,7 @@ function handlePoolExited(event: PoolBalanceChanged): void {
   exit.type = 'Exit';
   exit.amounts = exitAmounts;
   exit.pool = event.params.poolId.toHexString();
-  exit.user = event.params.liquidityProvider.toHexString();
+  exit.user = sender.toHexString();
   exit.timestamp = blockTimestamp;
   exit.tx = transactionHash;
   exit.valueUSD = ZERO_BD;
