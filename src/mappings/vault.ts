@@ -142,6 +142,7 @@ function handlePoolJoined(event: PoolBalanceChanged): void {
     sender = event.transaction.from;
   }
   join.sender = sender;
+  createUserEntity(sender);
   let joinAmounts = new Array<BigDecimal>();
   for (let i: i32 = 0; i < tokenAddresses.length; i++) {
     let tokenAddress: Address = Address.fromString(tokenAddresses[i].toHexString());
@@ -237,6 +238,7 @@ function handlePoolExited(event: PoolBalanceChanged): void {
     sender = event.transaction.from;
   }
   exit.sender = sender;
+  createUserEntity(sender);
   let exitAmounts = new Array<BigDecimal>();
 
   for (let i: i32 = 0; i < tokenAddresses.length; i++) {
