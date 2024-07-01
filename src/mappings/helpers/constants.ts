@@ -26,8 +26,14 @@ let network: string = dataSource.network();
 let vaultAddressByNetwork: AddressByNetwork = {
   velas: '0x82A8d8B59a13eD9df879C1f450a379182661AB59',
   arbitrum: '0x82A8d8B59a13eD9df879C1f450a379182661AB59',
-  binance: '0x36B129B35Ac950b15558973fc246121923E3fD63',
+  binance: '0x280d1651E45AC7a39300Eb129620d27F4ce418d4',
   polygon: '0xBC77248Ded7b5C1Cd32B0Ce1533421c332BBfa0b',
+};
+let zapperAddressByNetwork: AddressByNetwork = {
+  velas: '0x10f1691e036dBeAa3EB86114243072438f5C108a',
+  arbitrum: '0x10f1691e036dBeAa3EB86114243072438f5C108a',
+  binance: '0x10f1691e036dBeAa3EB86114243072438f5C108a',
+  polygon: '0x10f1691e036dBeAa3EB86114243072438f5C108a',
 };
 
 let wmaticAddressByNetwork: AddressByNetwork = {
@@ -105,6 +111,7 @@ function forNetwork(addressByNetwork: AddressByNetwork): Address {
 }
 
 export let VAULT_ADDRESS = forNetwork(vaultAddressByNetwork);
+export let ZAPPER_ADDRESS = forNetwork(zapperAddressByNetwork);
 export let WETH: Address = forNetwork(wethAddressByNetwork);
 export let WMATIC: Address = forNetwork(wmaticAddressByNetwork);
 export let WBNB: Address = forNetwork(wbnbAddressByNetwork);
