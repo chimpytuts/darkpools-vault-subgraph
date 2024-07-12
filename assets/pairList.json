@@ -1,6 +1,7 @@
 {
     "result": {
       "blacklistedPools": [
+          "0x18083623985eea516e5bcf22f17fe64c8d3e818c000100000000000000000006"
       ],
       "chainId": 56,
       "incentivizedPools": [
