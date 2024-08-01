@@ -30,10 +30,10 @@ let vaultAddressByNetwork: AddressByNetwork = {
   polygon: '0xBC77248Ded7b5C1Cd32B0Ce1533421c332BBfa0b',
 };
 let zapperAddressByNetwork: AddressByNetwork = {
-  velas: '0x10f1691e036dBeAa3EB86114243072438f5C108a',
-  arbitrum: '0x10f1691e036dBeAa3EB86114243072438f5C108a',
-  binance: '0x10f1691e036dBeAa3EB86114243072438f5C108a',
-  polygon: '0x10f1691e036dBeAa3EB86114243072438f5C108a',
+  velas: '0xdee60cb31eAE964cFA24a970Caa49d92365A9276',
+  arbitrum: '0xdee60cb31eAE964cFA24a970Caa49d92365A9276',
+  binance: '0xdee60cb31eAE964cFA24a970Caa49d92365A9276',
+  polygon: '0xdee60cb31eAE964cFA24a970Caa49d92365A9276',
 };
 
 let wmaticAddressByNetwork: AddressByNetwork = {
@@ -67,7 +67,7 @@ let wbnbAddressByNetwork: AddressByNetwork = {
 let usdAddressByNetwork: AddressByNetwork = {
   velas: '0x049d68029688eabf473097a2fc38ef61633a3c7a',
   arbitrum: '0xfd086bc7cd5c481dcc9c85ebe478a1c0b69fcbb9',
-  binance: '0x55d398326f99059ff775485246999027b3197955',
+  binance: '0x48a8162b477d3c34e8529e70a4fbe92b9b5031cf',
   polygon: '0xc2132d05d31c914a87c6611c10748aeb04b58e8f',
 };
 
@@ -127,8 +127,8 @@ export let DAI: Address = forNetwork(daiAddressByNetwork);
 export let BUSD: Address = forNetwork(busdAddressByNetwork);
 export let NATIVE_ASSET: Address = forNetwork(nativeAssetAddressByNetwork);
 
-export let PRICING_ASSETS: Address[] = [];
+//export let PRICING_ASSETS: Address[] = [];
 export let USD_STABLE_ASSETS: Address[] = [USD, USDC, DAI];
 
-//export let PRICING_ASSETS: Address[] = [WETH, WBTC, USDC, DAI, BAL, MIM, AUSD];
+export let PRICING_ASSETS: Address[] = [WETH, WBTC, USDC, DAI, USD];
 //export let USD_STABLE_ASSETS: Address[] = [USDC, DAI, AUSD, MIM];

@@ -50,6 +50,11 @@ type Pool @entity {
   # StablePool Only
   amp: BigInt
 
+  mainIndex: Int
+  wrappedIndex: Int
+  lowerTarget: BigDecimal
+  upperTarget: BigDecimal
+
   # MetaStablePool Only
   priceRateProviders: [PriceRateProvider!] @derivedFrom(field: "poolId")
 
