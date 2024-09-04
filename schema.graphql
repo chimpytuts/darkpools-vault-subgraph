@@ -321,3 +321,11 @@ type HistoricalTotalShare @entity {
   timestamp: Int!
   poolId: Pool!
 }
+
+type Claim @entity {
+  id: ID!
+  address: Bytes!
+  tokens: [Bytes!]!
+  amounts: [BigDecimal!]!
+  tx: Bytes!
+}

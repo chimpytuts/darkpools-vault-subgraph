@@ -73,6 +73,29 @@ dataSources:
       eventHandlers:
         - event: PoolCreated(indexed address)
           handler: handleNewWeightedPool
+  - kind: ethereum/contract
+    name: ProfitDistribution
+    network: bsc
+    source:
+      address: "0x2fca8adce09bacdc45af36e2e2f39b71ae1d2800"
+      abi: ProfitDistribution
+      startBlock: 40162690
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.7
+      language: wasm/assemblyscript
+      file: ./src/mappings/ProfitDistribution.ts
+      entities:
+        - Claim
+      abis:
+        - name: ERC20
+          file: ./abis/ERC20.json
+        - name: ProfitDistribution
+          file: ./abis/ProfitDistribution.json
+      eventHandlers:
+        - event: Claimed(indexed address,indexed address[],uint256[])
+          handler: handleClaim
+          receipt: true
 templates:
   - kind: ethereum/contract
     name: WeightedPool

@@ -29,11 +29,17 @@ let vaultAddressByNetwork: AddressByNetwork = {
   binance: '0x280d1651E45AC7a39300Eb129620d27F4ce418d4',
   polygon: '0xBC77248Ded7b5C1Cd32B0Ce1533421c332BBfa0b',
 };
+let profitDistributionAddressByNetwork: AddressByNetwork = {
+  velas: '0x2fca8adce09bacdc45af36e2e2f39b71ae1d2800',
+  arbitrum: '0x2fca8adce09bacdc45af36e2e2f39b71ae1d2800',
+  binance: '0x2fca8adce09bacdc45af36e2e2f39b71ae1d2800',
+  polygon: '0x2fca8adce09bacdc45af36e2e2f39b71ae1d2800',
+};
 let zapperAddressByNetwork: AddressByNetwork = {
-  velas: '0xdee60cb31eAE964cFA24a970Caa49d92365A9276',
-  arbitrum: '0xdee60cb31eAE964cFA24a970Caa49d92365A9276',
-  binance: '0xdee60cb31eAE964cFA24a970Caa49d92365A9276',
-  polygon: '0xdee60cb31eAE964cFA24a970Caa49d92365A9276',
+  velas: '0xcc8282cd85119f4e26ef2052bc55e8bb71c095dc',
+  arbitrum: '0xcc8282cd85119f4e26ef2052bc55e8bb71c095dc',
+  binance: '0xcc8282cd85119f4e26ef2052bc55e8bb71c095dc',
+  polygon: '0xcc8282cd85119f4e26ef2052bc55e8bb71c095dc',
 };
 
 let wmaticAddressByNetwork: AddressByNetwork = {
@@ -111,6 +117,7 @@ function forNetwork(addressByNetwork: AddressByNetwork): Address {
 }
 
 export let VAULT_ADDRESS = forNetwork(vaultAddressByNetwork);
+export let PROFIT_DISTRIBUTION_ADDRESS = forNetwork(profitDistributionAddressByNetwork);
 export let ZAPPER_ADDRESS = forNetwork(zapperAddressByNetwork);
 export let WETH: Address = forNetwork(wethAddressByNetwork);
 export let WMATIC: Address = forNetwork(wmaticAddressByNetwork);
