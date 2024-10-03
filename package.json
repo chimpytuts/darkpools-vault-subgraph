@@ -14,7 +14,7 @@
     "deploy:arbitrum": "graph deploy chimpytuts/darkpools-main-arbitrum subgraph.arbitrum.yaml",
     "deploy:binance": "graph deploy chimpytuts/darkpools-main-binance subgraph.binance.yaml",
     "deploy:polygon": "graph deploy chimpytuts/darkpools-main-polygon subgraph.polygon.yaml",
-    "deploy:dev": "graph deploy subgraph.binance.yaml --access-token 6f4c1816c39eabcfa8ed5ad8f459fdf6"
+    "deploy:dev": "graph deploy --studio darkpools-shared-version"
   },
   "jest": {
     "globals": {
