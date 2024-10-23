@@ -328,4 +328,5 @@ type Claim @entity {
   tokens: [Bytes!]!
   amounts: [BigDecimal!]!
   tx: Bytes!
+  timestamp: Int!
 }
