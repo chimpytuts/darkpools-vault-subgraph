@@ -39,7 +39,7 @@ import {
 } from './helpers/misc';
 import { updatePoolWeights } from './helpers/weighted';
 import { isUSDStable, isPricingAsset, updatePoolLiquidity, valueInUSD } from './pricing';
-import { MIN_VIABLE_LIQUIDITY, ONE_BD, TokenBalanceEvent, ZAPPER_ADDRESS, ZERO, ZERO_BD } from './helpers/constants';
+import { MIN_VIABLE_LIQUIDITY, ONE_BD, TokenBalanceEvent, ZAPPER_ADDRESSES, ZERO, ZERO_BD } from './helpers/constants';
 import { isStableLikePool, isVariableWeightPool } from './helpers/pools';
 
 /************************************
@@ -138,7 +138,7 @@ function handlePoolJoined(event: PoolBalanceChanged): void {
   let joinId = transactionHash.toHexString().concat(logIndex.toString());
   let join = new JoinExit(joinId);
   let sender = event.params.liquidityProvider;
-  if (sender == ZAPPER_ADDRESS) {
+  if (ZAPPER_ADDRESSES.includes(sender)) {
     sender = event.transaction.from;
   }
   join.sender = sender;
@@ -234,7 +234,7 @@ function handlePoolExited(event: PoolBalanceChanged): void {
   let exitId = transactionHash.toHexString().concat(logIndex.toString());
   let exit = new JoinExit(exitId);
   let sender = event.params.liquidityProvider;
-  if (sender == ZAPPER_ADDRESS) {
+  if (ZAPPER_ADDRESSES.includes(sender)) {
     sender = event.transaction.from;
   }
   exit.sender = sender;

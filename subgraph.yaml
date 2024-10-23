@@ -8,12 +8,12 @@ dataSources:
     name: Vault
     network: bsc
     source:
-      address: "0x280d1651E45AC7a39300Eb129620d27F4ce418d4"
+      address: "0x43223001aA561673807444df4A13c79156180d43"
       abi: Vault
-      startBlock: 30310129
+      startBlock: 40155762
     mapping:
       kind: ethereum/events
-      apiVersion: 0.0.6
+      apiVersion: 0.0.7
       language: wasm/assemblyscript
       file: ./src/mappings/vault.ts
       entities:
@@ -50,12 +50,12 @@ dataSources:
     name: WeightedPoolFactory
     network: bsc
     source:
-      address: "0x3B1a4963C17F0eCeC61944807306719753EDC2BA"
+      address: "0xAD976743f2f5Ef40FFD55477209D61258ef27Cb4"
       abi: WeightedPoolFactory
-      startBlock: 30310129
+      startBlock: 40155765
     mapping:
       kind: ethereum/events
-      apiVersion: 0.0.6
+      apiVersion: 0.0.7
       language: wasm/assemblyscript
       file: ./src/mappings/poolFactory.ts
       entities:
@@ -104,7 +104,7 @@ templates:
       abi: WeightedPool
     mapping:
       kind: ethereum/events
-      apiVersion: 0.0.6
+      apiVersion: 0.0.7
       language: wasm/assemblyscript
       file: ./src/mappings/poolController.ts
       entities:

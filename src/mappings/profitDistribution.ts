@@ -8,6 +8,7 @@ export function handleClaim(event: Claimed): void {
   let claim = new Claim(id);
   claim.address = event.transaction.from;
   claim.tx = event.transaction.hash;
+  claim.timestamp = event.block.timestamp.toI32();
   claim.amounts = event.parameters[2].value.toBigIntArray().map<BigDecimal>((item) => {
     return item.toBigDecimal();
   });
