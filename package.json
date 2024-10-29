@@ -5,16 +5,16 @@
     "codegen:arbitrum": "graph codegen --output-dir src/types/ subgraph.arbitrum.yaml",
     "codegen:binance": "graph codegen --output-dir src/types/ subgraph.yaml",
     "codegen:polygon": "graph codegen --output-dir src/types/ subgraph.polygon.yaml",
-    "auth": "graph auth",
+    "auth": "graph auth --studio",
     "build:arbitrum": "graph build subgraph.arbitrum.yaml",
     "build:binance": "graph build subgraph.yaml",
     "build:polygon": "graph build subgraph.polygon.yaml",
     "lint": "eslint --max-warnings 0 . --ext .ts",
     "test": "jest ./test/*.test.ts",
-    "deploy:arbitrum": "graph deploy chimpytuts/darkpools-main-arbitrum subgraph.arbitrum.yaml",
-    "deploy:binance": "graph deploy chimpytuts/darkpools-main-binance subgraph.binance.yaml",
-    "deploy:polygon": "graph deploy chimpytuts/darkpools-main-polygon subgraph.polygon.yaml",
-    "deploy:dev": "graph deploy subgraph.binance.yaml --access-token 6f4c1816c39eabcfa8ed5ad8f459fdf6"
+    "deploy:arbitrum": "graph deploy privatepools-network/darkpools-main-arbitrum subgraph.arbitrum.yaml",
+    "deploy:binance": "graph deploy privatepools-network/darkpools-main-binance subgraph.binance.yaml",
+    "deploy:polygon": "graph deploy privatepools-network/darkpools-main-polygon subgraph.polygon.yaml",
+    "deploy:dev": "graph deploy --studio privatepools-shared-version"
   },
   "jest": {
     "globals": {
