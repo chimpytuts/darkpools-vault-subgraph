@@ -1,0 +1,41 @@
+{
+    "timestamp": "2024-12-02T10:23:15.176Z",
+    "name": "Pulse Base Default",
+    "version": {
+        "major": 0,
+        "minor": 0,
+        "patch": 24
+    },
+    "logoURI": "https://assets.coingecko.com/coins/images/30432/standard/pulse.jpeg",
+    "keywords": [
+        "pancakeswap",
+        "default",
+        "base"
+    ],
+    "tokens": [
+        {
+            "name": "wPLS",
+            "symbol": "wPLS",
+            "address": "0x70499adEBB11Efd915E3b69E700c331778628707",
+            "chainId": 943,
+            "decimals": 18,
+            "logoURI": "https://assets.coingecko.com/coins/images/30432/standard/pulse.jpeg?1696529320"
+        },
+        {
+            "name": "OREO",
+            "symbol": "OREO",
+            "address": "0x33F2DF5878fFE14e83DE03a464605582538cBB8D",
+            "chainId": 943,
+            "decimals": 18,
+            "logoURI": "https://raw.githubusercontent.com/chimpytuts/darkpools-vault-subgraph/refs/heads/main/oreologo.png"
+        },
+        {
+            "name": "USD Coin",
+            "symbol": "USDC",
+            "address": "0x12Ab8B560FAFe099e1CCc836cbbc2286EDe7905f",
+            "chainId": 943,
+            "decimals": 6,
+            "logoURI": "https://tokens.pancakeswap.finance/images/symbol/usdc.png"
+        }
+    ]
+}
